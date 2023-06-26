@@ -1,24 +1,26 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace map
 {
-    public class CommandSlot : MonoBehaviour
+    public class CommandOverlay : MonoBehaviour
     {
-        public GameObject slotPrefab;
+        public GameObject slot;
         public GameObject panel;
         public player.Player player;
 
         private void Start()
         {
-            CreateMagicSlots();
+            CreateCommandOverlay();
         }
 
-        private void CreateMagicSlots()
+        private void CreateCommandOverlay()
         {
 
             for (int i = 0; i < player.maxCommandInHand; i++)
             {
-                GameObject newSlot = Instantiate(slotPrefab, panel.transform);
+                // GameObject command = Instantiate()
+                GameObject newSlot = Instantiate(slot, panel.transform);
                 var childRect = newSlot.GetComponent<RectTransform>();
                 var parentRect = panel.GetComponent<RectTransform>().rect;
                 var sizeDelta = childRect.sizeDelta;

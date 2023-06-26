@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using script.command;
+using script.manager;
 using script.soldier;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace player
     public class Player : ScriptableObject
     {
 
+        public ItemLibrary library;
         // private List<Manual> manuals;
         // private List<Quest> quests;
         public List<Soldier> soldiers;

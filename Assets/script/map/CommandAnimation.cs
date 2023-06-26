@@ -5,40 +5,37 @@ namespace script.map
     public class CommandAnimation : MonoBehaviour
     {
         private Animator _animator;
-        private int isEnteredHash;
-        private int isClickedHash;
-        private int isDisabledHash;
+        private int _isEnteredHash;
+        private int _isClickedHash;
+        private int _isDisabledHash;
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            isEnteredHash = Animator.StringToHash("isEntered");
-            isClickedHash = Animator.StringToHash("isClicked");
-            isDisabledHash = Animator.StringToHash("isDisabled");
-            Debug.Log("CommandAnimation Awake" + _animator.parameterCount);
+            _isEnteredHash = Animator.StringToHash("isEntered");
+            _isClickedHash = Animator.StringToHash("isClicked");
+            _isDisabledHash = Animator.StringToHash("isDisabled");
         }
 
         private void OnMouseEnter()
         {
-            _animator.SetBool(isEnteredHash, true);
-            Debug.Log("CommandAnimation OnMouseEnter");
+            _animator.SetBool(_isEnteredHash, true);
         }
 
         private void OnMouseExit()
         {
-            _animator.SetBool(isEnteredHash, false);
-            Debug.Log("CommandAnimation OnMouseExit");
+            _animator.SetBool(_isEnteredHash, false);
         }
 
         private void OnMouseUp()
         {
-            _animator.SetBool(isClickedHash, true);
-            Debug.Log("CommandAnimation OnMouseUp");
+            _animator.SetBool(_isEnteredHash, false);
+            _animator.SetBool(_isClickedHash, true);
         }
 
         private void OnCommandDisabled()
         {
-            _animator.SetBool(2, true);
+            _animator.SetBool(_isDisabledHash, true);
         }
     }
 }

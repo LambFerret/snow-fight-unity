@@ -23,7 +23,6 @@ namespace map
         private Soldier[] _workingSoldiers;
 
         public Tilemap tilemap;
-        public GameObject textPrefab;
         public player.Player player;
         public GameObject victoryPanel;
         public GameObject defeatPanel;

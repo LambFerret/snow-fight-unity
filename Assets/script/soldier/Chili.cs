@@ -1,13 +1,13 @@
 namespace script.soldier
 {
-    public class Vanilla : Soldier
+    public class Chili : Soldier
     {
-        public Vanilla()
+        public Chili()
         {
-            name = "Vanilla";
-            rangeX = 3;
-            rangeY = 4;
-            speed = 3;
+            name = "Chili";
+            rangeX = 2;
+            rangeY = 1;
+            speed = 10;
             runAwayProbability = 30;
             rank = Rank.Private;
             branch = Branch.Administrative;
