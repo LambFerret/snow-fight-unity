@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b7d16abd71c45fd87d1d3814e8ce91, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: 
+  soldiers:
+  - {fileID: 0}
+  commands: []
+  clearedMainQuestNumber: 0
+  day: 0
+  money: 1000
+  maxCost: 15
+  difficulty: 0
+  currentCost: 15
+  snowAmount: 39
+  middleAffinity: 50
+  downAffinity: 10
+  upperAffinity: 10
+  maxManualCapacity: 3
+  maxCommandInHand: 5
