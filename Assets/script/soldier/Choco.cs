@@ -4,7 +4,7 @@ namespace script.soldier
     {
         public Choco()
         {
-            name = "Choco";
+            id = "Choco";
             rangeX = 2;
             rangeY = 6;
             speed = 5;
@@ -14,7 +14,7 @@ namespace script.soldier
             Talent = UniqueTalent;
         }
 
-        public void UniqueTalent()
+        private void UniqueTalent()
         {
             speed += 1;
         }

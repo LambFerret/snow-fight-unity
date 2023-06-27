@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using script.Overlay;
 using script.soldier;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -23,9 +24,11 @@ namespace map
         private Soldier[] _workingSoldiers;
 
         public Tilemap tilemap;
-        public player.Player player;
+        public script.player.Player player;
         public GameObject victoryPanel;
         public GameObject defeatPanel;
+        public GameObject commandOverlayGameObject;
+        private CommandOverlay _commandOverlay;
 
         protected abstract int[,] GetMaxAmountList();
         protected abstract int[,] GetTerrainList();
@@ -38,6 +41,7 @@ namespace map
             MakeMapData();
             currentState = PhaseState.Pre;
             _maxPhaseNumber = 1 + ((int)region + 2) * 2;
+            _commandOverlay = commandOverlayGameObject.GetComponent<CommandOverlay>();
         }
 
         public void NextPhase()
@@ -84,8 +88,7 @@ namespace map
         private void InitReady()
         {
             SetSoldier();
-            Debug.Log(_workingSoldiers);
-            LocateWorkingPlace();
+            RepeatReady();
         }
 
         private void InitAction()
@@ -96,6 +99,7 @@ namespace map
         private void RepeatReady()
         {
             LocateWorkingPlace();
+            _commandOverlay.StartTurn();
         }
 
         private void MakeMapData()
@@ -159,8 +163,8 @@ namespace map
                     _workingSoldiers = player.soldiers.ToArray();
                     break;
                 }
+
                 int randomSoldierFromPlayer = Random.Range(0, player.soldiers.Count);
-                Debug.Log(randomSoldierFromPlayer);
                 Soldier randomSoldier = player.soldiers[randomSoldierFromPlayer];
                 _workingSoldiers[i] = randomSoldier;
                 i++;
@@ -236,7 +240,8 @@ namespace map
         {
             foreach (var s in _workingSoldiers)
             {
-                s.Talent();
+                // s.Talent();
+                // Debug.Log(s.name + " / time : " + timing);
             }
         }
 

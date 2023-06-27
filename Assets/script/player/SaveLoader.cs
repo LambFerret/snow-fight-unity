@@ -1,4 +1,4 @@
-namespace player
+namespace script.player
 {
     [System.Serializable]
     public class SaveLoader

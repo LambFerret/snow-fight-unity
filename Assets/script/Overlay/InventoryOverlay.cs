@@ -3,7 +3,7 @@ using script.manager;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace map
+namespace script.Overlay
 {
     public class InventoryOverlay : MonoBehaviour
     {
@@ -13,14 +13,9 @@ namespace map
         private void Start()
         {
             var group = gameObject.GetComponent<GridLayoutGroup>();
-            Debug.Log(itemLibrary.WholeSoldiers.Count);
-            Debug.Log("s.name");
-
-            foreach (var s in itemLibrary.WholeSoldiers)
+            foreach (var s in itemLibrary.wholeSoldiers)
             {
-                Debug.Log(s.name);
-                var a = Instantiate(soldierPrefab);
-                var soldier = s.MakeSoldierPrefab(a);
+                var soldier = s.MakeSoldierPrefab(Instantiate(soldierPrefab));
                 soldier.transform.SetParent(group.transform, false);
             }
         }

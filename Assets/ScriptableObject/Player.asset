@@ -13,8 +13,79 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   soldiers:
-  - {fileID: 0}
-  commands: []
+  - id: 
+    name: 
+    rangeX: 0
+    rangeY: 0
+    speed: 0
+    runAwayProbability: 0
+    preferenceTerrain: []
+    rank: 2147483647
+    branch: 1
+    empowerLevel: 1
+    branchValue: 100
+  - id: 
+    name: 
+    rangeX: 0
+    rangeY: 0
+    speed: 0
+    runAwayProbability: 0
+    preferenceTerrain: []
+    rank: 2147483647
+    branch: 1
+    empowerLevel: 1
+    branchValue: 100
+  - id: 
+    name: 
+    rangeX: 0
+    rangeY: 0
+    speed: 0
+    runAwayProbability: 0
+    preferenceTerrain: []
+    rank: 2147483647
+    branch: 1
+    empowerLevel: 1
+    branchValue: 100
+  commands:
+  - id: 
+    commandName: 
+    type: 0
+    cost: 0
+    target: 0
+    rarity: 0
+    price: 0
+    affectToUp: 0
+    affectToMiddle: 0
+    affectToDown: 0
+    isReusable: 0
+    usedCount: 0
+    targetCount: 0
+  - id: 
+    commandName: 
+    type: 0
+    cost: 0
+    target: 0
+    rarity: 0
+    price: 0
+    affectToUp: 0
+    affectToMiddle: 0
+    affectToDown: 0
+    isReusable: 0
+    usedCount: 0
+    targetCount: 0
+  - id: 
+    commandName: 
+    type: 0
+    cost: 0
+    target: 0
+    rarity: 0
+    price: 0
+    affectToUp: 0
+    affectToMiddle: 0
+    affectToDown: 0
+    isReusable: 0
+    usedCount: 0
+    targetCount: 0
   clearedMainQuestNumber: 0
   day: 0
   money: 1000

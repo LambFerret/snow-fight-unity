@@ -1,4 +1,4 @@
-namespace Player
+namespace script.player
 {
     [System.Serializable]
     public class Item

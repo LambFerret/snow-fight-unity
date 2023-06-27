@@ -4,12 +4,10 @@ namespace script.command
 {
     public class CupRamen : Command
     {
-        public override void Execute()
-        {
-        }
-
         private void Start()
         {
+            id = "CupRamen";
+            commandName = "Cup Ramen";
             type = Type.Operation;
             cost = 3;
             target = Target.Soldier;
@@ -21,6 +19,12 @@ namespace script.command
             isReusable = true;
             usedCount = 1;
             targetCount = 1;
+            Effect = UniqueEffect;
+        }
+
+        private void UniqueEffect()
+        {
+
         }
     }
 }

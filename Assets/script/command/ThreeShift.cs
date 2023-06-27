@@ -4,12 +4,11 @@ namespace script.command
 {
     public class ThreeShift : Command
     {
-        public override void Execute()
-        {
-        }
 
         private void Start()
         {
+            id = "ThreeShift";
+            commandName = "Three Shift";
             type = Type.Operation;
             cost = 3;
             target = Target.Soldier;
@@ -21,6 +20,12 @@ namespace script.command
             isReusable = true;
             usedCount = 1;
             targetCount = 1;
+            Effect = UniqueEffect;
+        }
+
+        private void UniqueEffect()
+        {
+
         }
     }
 }

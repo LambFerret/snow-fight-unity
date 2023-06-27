@@ -1,15 +1,17 @@
+using map;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace map
+namespace script.Overlay
 {
     public class ExecuteBehavior : MonoBehaviour
     {
-        public Level LevelData;
+        public Level levelData;
 
         private void Start()
         {
-            gameObject.GetComponent<Button>().onClick.AddListener(LevelData.NextPhase);
+            gameObject.GetComponent<Button>().onClick.AddListener(levelData.NextPhase);
         }
     }
 }

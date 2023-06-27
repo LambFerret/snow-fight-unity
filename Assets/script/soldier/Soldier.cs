@@ -8,6 +8,7 @@ namespace script.soldier
     [Serializable]
     public class Soldier
     {
+        public string id;
         public string name;
         public int rangeX;
         public int rangeY;
@@ -19,6 +20,10 @@ namespace script.soldier
         public EmpowerLevel empowerLevel = EmpowerLevel.Neutral;
         public int branchValue = 100;
 
+        public delegate void EffectTalent();
+
+        public EffectTalent Talent;
+
         public GameObject MakeSoldierPrefab(GameObject prefab)
         {
             var nameText = prefab.transform.Find("Card/Name").GetComponent<Text>();
@@ -26,10 +31,10 @@ namespace script.soldier
             var yText = prefab.transform.Find("Card/Panel/y/y").GetComponent<Text>();
             var sText = prefab.transform.Find("Card/Panel/s/s").GetComponent<Text>();
             var rText = prefab.transform.Find("Card/Panel/r/r").GetComponent<Text>();
-            // var portraitText = prefab.transform.Find("Card/Portrait").GetComponent<Text>();
+            // var portraitText = prefab.transform.Find("Card/Portrait").GetComponent<Image>();
             var branchText = prefab.transform.Find("Card/Info/Branch").GetComponent<Text>();
 
-            nameText.text = name;
+            nameText.text = id;
             xText.text = rangeX.ToString();
             yText.text = rangeY.ToString();
             sText.text = speed.ToString();
@@ -39,10 +44,6 @@ namespace script.soldier
 
             return prefab;
         }
-
-        public delegate void EffectTalent();
-
-        public EffectTalent Talent;
 
         public enum Branch
         {

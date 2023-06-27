@@ -5,14 +5,14 @@ using script.manager;
 using script.soldier;
 using UnityEngine;
 
-namespace player
+namespace script.player
 {
     [Serializable]
     [CreateAssetMenu]
     public class Player : ScriptableObject
     {
 
-        public ItemLibrary library;
+        // public ItemLibrary library = GameManager.Instance.itemLibrary;
         // private List<Manual> manuals;
         // private List<Quest> quests;
         public List<Soldier> soldiers;
@@ -44,11 +44,12 @@ namespace player
             upperAffinity = 10;
             maxManualCapacity = 3;
             maxCommandInHand = 5;
+        }
 
-
-            //=-=-=-=-=-=-=-
-
-            //=-=-=-=-=-=-=-
+        public void Init(List<Soldier> soldiers, List<Command> commands)
+        {
+            this.soldiers = soldiers;
+            this.commands = commands;
         }
 
         public enum Affinity

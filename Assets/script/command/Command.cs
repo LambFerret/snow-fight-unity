@@ -1,9 +1,14 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace script.command
 {
-    public abstract class Command : MonoBehaviour
+    [Serializable]
+    public class Command
     {
+        public string id;
+        public string commandName;
         public Type type;
         public int cost;
         public Target target;
@@ -16,7 +21,25 @@ namespace script.command
         public int usedCount;
         public int targetCount;
 
-        public abstract void Execute();
+        public delegate void EffectCommand();
+
+        public EffectCommand Effect;
+
+        public GameObject MakeCommandPrefab(GameObject prefab)
+        {
+            var nameText = prefab.transform.Find("Card/Paper/commandName").GetComponent<Text>();
+            var effectDescriptionText = prefab.transform.Find("Card/Paper/effectDescription").GetComponent<Text>();
+            // var commandIcon = prefab.transform.Find("Card/Front/Icon").GetComponent<Image>();
+            var costText = prefab.transform.Find("Card/Front/Cost/cost").GetComponent<Text>();
+            var typeText = prefab.transform.Find("Card/Back/type").GetComponent<Text>();
+
+            nameText.text = commandName;
+            effectDescriptionText.text = "effectDescription";
+            costText.text = cost.ToString();
+            typeText.text = type.ToString();
+
+            return prefab;
+        }
 
         public enum Target
         {

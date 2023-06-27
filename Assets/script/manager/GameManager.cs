@@ -1,10 +1,30 @@
 
+
+using System.Collections.Generic;
+using script.command;
+using script.soldier;
+
 namespace script.manager
 {
     public class GameManager : Singleton<GameManager>
 
     {
-        public static player.Player Player;
+        public player.Player player;
         public ItemLibrary itemLibrary;
+
+        public void Start()
+        {
+            List<Soldier> soldiers = new List<Soldier>();
+            List<Command> commands = new List<Command>();
+
+            soldiers.Add(itemLibrary.PopSoldier("Vanilla"));
+            soldiers.Add(itemLibrary.PopSoldier("Choco"));
+            soldiers.Add(itemLibrary.PopSoldier("Chili"));
+            commands.Add(itemLibrary.PopCommand("CupNoodle"));
+            commands.Add(itemLibrary.PopCommand("CupNoodleXL"));
+            commands.Add(itemLibrary.PopCommand("CupRamen"));
+
+            player.Init(soldiers, commands);
+        }
     }
 }

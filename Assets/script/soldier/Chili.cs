@@ -4,7 +4,7 @@ namespace script.soldier
     {
         public Chili()
         {
-            name = "Chili";
+            id = "Chili";
             rangeX = 2;
             rangeY = 1;
             speed = 10;
@@ -14,7 +14,7 @@ namespace script.soldier
             Talent = UniqueTalent;
         }
 
-        public void UniqueTalent()
+        private void UniqueTalent()
         {
             speed += 1;
         }

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Player;
 
-namespace player
+namespace script.player
 {
     public class Save
     {
