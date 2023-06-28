@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using script.overlay;
 using script.Overlay;
 using script.soldier;
 using UnityEngine;
@@ -21,13 +22,15 @@ namespace map
         public int minSnowAmount;
         public int maxSoliderCapacity;
         public Region region;
-        private Soldier[] _workingSoldiers;
+        private List<Soldier> _workingSoldiers = new List<Soldier>();
 
         public Tilemap tilemap;
         public script.player.Player player;
         public GameObject victoryPanel;
         public GameObject defeatPanel;
         public GameObject commandOverlayGameObject;
+        public GameObject soldierOverlayGameObject;
+        public GameObject levelAsset;
         private CommandOverlay _commandOverlay;
 
         protected abstract int[,] GetMaxAmountList();
@@ -85,20 +88,27 @@ namespace map
             _phaseNumber++;
         }
 
+        // pre -> ready
         private void InitReady()
         {
+            // 스테이지에 있을 병사 선발
             SetSoldier();
+            // 위치 잡기 and 덱에서 카드 드로우
             RepeatReady();
         }
-
+        // ready -> action
         private void InitAction()
         {
+            // 일하세요
             HappyWorking();
         }
 
+        // action -> ready
         private void RepeatReady()
         {
+            // 위치 잡기
             LocateWorkingPlace();
+            // 카드 드로우
             _commandOverlay.StartTurn();
         }
 
@@ -154,26 +164,21 @@ namespace map
 
         private void SetSoldier()
         {
-            _workingSoldiers = new Soldier[maxSoliderCapacity];
-            int i = 0;
-            while (true)
+            if (player.soldiers.Count <= maxSoliderCapacity)
             {
-                if (player.soldiers.Count <= maxSoliderCapacity)
+                _workingSoldiers.AddRange(player.soldiers);
+            }
+            else
+            {
+                for (int i = 0; i < maxSoliderCapacity; i++)
                 {
-                    _workingSoldiers = player.soldiers.ToArray();
-                    break;
-                }
-
-                int randomSoldierFromPlayer = Random.Range(0, player.soldiers.Count);
-                Soldier randomSoldier = player.soldiers[randomSoldierFromPlayer];
-                _workingSoldiers[i] = randomSoldier;
-                i++;
-                if (i >= maxSoliderCapacity)
-                {
-                    break;
+                    int randomSoldierFromPlayer = Random.Range(0, player.soldiers.Count);
+                    Soldier randomSoldier = player.soldiers[randomSoldierFromPlayer];
+                    _workingSoldiers[i] = randomSoldier;
                 }
             }
 
+            soldierOverlayGameObject.GetComponent<SoldierOverlay>().SetWorkingSolider(_workingSoldiers);
             EffectTalent(TalentTiming.VictimSelected);
         }
 

@@ -4,8 +4,7 @@ namespace script.command
 {
     public class TricksOfTrade : Command
     {
-        private void Start()
-        {
+        public TricksOfTrade()        {
             id = "TricksOfTrade";
             commandName = "Tricks Of Trade";
             type = Type.Operation;

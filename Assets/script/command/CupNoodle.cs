@@ -1,12 +1,10 @@
-using System;
-
 namespace script.command
 {
     public class CupNoodle : Command
     {
 
 
-        private void Start()
+        public CupNoodle()
         {
             id = "CupNoodle";
             commandName = "Cup Noodle";

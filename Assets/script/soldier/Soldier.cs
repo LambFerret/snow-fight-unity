@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace script.soldier
 {
     [Serializable]
-    public class Soldier
+    public class Soldier :MonoBehaviour
     {
         public string id;
-        public string name;
+        public string soldierName;
         public int rangeX;
         public int rangeY;
         public int speed;
@@ -24,15 +25,16 @@ namespace script.soldier
 
         public EffectTalent Talent;
 
-        public GameObject MakeSoldierPrefab(GameObject prefab)
+        public GameObject MakeSoldierCard(GameObject prefab)
         {
-            var nameText = prefab.transform.Find("Card/Name").GetComponent<Text>();
-            var xText = prefab.transform.Find("Card/Panel/x/x").GetComponent<Text>();
-            var yText = prefab.transform.Find("Card/Panel/y/y").GetComponent<Text>();
-            var sText = prefab.transform.Find("Card/Panel/s/s").GetComponent<Text>();
-            var rText = prefab.transform.Find("Card/Panel/r/r").GetComponent<Text>();
-            // var portraitText = prefab.transform.Find("Card/Portrait").GetComponent<Image>();
-            var branchText = prefab.transform.Find("Card/Info/Branch").GetComponent<Text>();
+            GameObject card = prefab.transform.Find("Card").gameObject;
+            var nameText = card.transform.Find("Name").GetComponent<Text>();
+            var xText = card.transform.Find("Panel/x/x").GetComponent<Text>();
+            var yText = card.transform.Find("Panel/y/y").GetComponent<Text>();
+            var sText = card.transform.Find("Panel/s/s").GetComponent<Text>();
+            var rText = card.transform.Find("Panel/r/r").GetComponent<Text>();
+            // var portraitText = card.transform.Find("Portrait").GetComponent<Image>();
+            var branchText = card.transform.Find("Info/Branch").GetComponent<Text>();
 
             nameText.text = id;
             xText.text = rangeX.ToString();
@@ -42,7 +44,14 @@ namespace script.soldier
             // portraitText.text = 포트레이트 경로
             branchText.text = branch.ToString();
 
-            return prefab;
+            return card;
+        }
+
+        public GameObject MakeSoldierStanding(GameObject prefab)
+        {
+            var stand = prefab.transform.Find("Stand/Character").gameObject;
+            // var standAnimation =
+            return stand;
         }
 
         public enum Branch

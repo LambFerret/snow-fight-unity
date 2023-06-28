@@ -5,8 +5,7 @@ namespace script.command
     public class CupNoodleXL : Command
     {
 
-        private void Start()
-        {
+        public CupNoodleXL()        {
             id = "CupNoodleXL";
             commandName = "Cup Noodle XL";
             type = Type.Operation;

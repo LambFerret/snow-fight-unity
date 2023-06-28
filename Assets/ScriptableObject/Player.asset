@@ -13,79 +13,79 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   soldiers:
-  - id: 
+  - id: Vanilla
     name: 
-    rangeX: 0
-    rangeY: 0
-    speed: 0
-    runAwayProbability: 0
+    rangeX: 3
+    rangeY: 4
+    speed: 3
+    runAwayProbability: 30
     preferenceTerrain: []
     rank: 2147483647
     branch: 1
     empowerLevel: 1
     branchValue: 100
-  - id: 
+  - id: Choco
     name: 
-    rangeX: 0
-    rangeY: 0
-    speed: 0
-    runAwayProbability: 0
+    rangeX: 2
+    rangeY: 6
+    speed: 5
+    runAwayProbability: 30
     preferenceTerrain: []
     rank: 2147483647
     branch: 1
     empowerLevel: 1
     branchValue: 100
-  - id: 
+  - id: Chili
     name: 
-    rangeX: 0
-    rangeY: 0
-    speed: 0
-    runAwayProbability: 0
+    rangeX: 2
+    rangeY: 1
+    speed: 10
+    runAwayProbability: 30
     preferenceTerrain: []
     rank: 2147483647
     branch: 1
     empowerLevel: 1
     branchValue: 100
   commands:
-  - id: 
-    commandName: 
+  - id: CupNoodle
+    commandName: Cup Noodle
     type: 0
-    cost: 0
-    target: 0
+    cost: 3
+    target: 1
     rarity: 0
-    price: 0
-    affectToUp: 0
-    affectToMiddle: 0
-    affectToDown: 0
-    isReusable: 0
-    usedCount: 0
-    targetCount: 0
-  - id: 
-    commandName: 
+    price: 300
+    affectToUp: 1
+    affectToMiddle: 1
+    affectToDown: 1
+    isReusable: 1
+    usedCount: 1
+    targetCount: 1
+  - id: CupNoodleXL
+    commandName: Cup Noodle XL
     type: 0
-    cost: 0
-    target: 0
+    cost: 3
+    target: 1
     rarity: 0
-    price: 0
-    affectToUp: 0
-    affectToMiddle: 0
-    affectToDown: 0
-    isReusable: 0
-    usedCount: 0
-    targetCount: 0
-  - id: 
-    commandName: 
+    price: 300
+    affectToUp: 1
+    affectToMiddle: 1
+    affectToDown: 1
+    isReusable: 1
+    usedCount: 1
+    targetCount: 1
+  - id: CupRamen
+    commandName: Cup Ramen
     type: 0
-    cost: 0
-    target: 0
+    cost: 3
+    target: 1
     rarity: 0
-    price: 0
-    affectToUp: 0
-    affectToMiddle: 0
-    affectToDown: 0
-    isReusable: 0
-    usedCount: 0
-    targetCount: 0
+    price: 300
+    affectToUp: 1
+    affectToMiddle: 1
+    affectToDown: 1
+    isReusable: 1
+    usedCount: 1
+    targetCount: 1
   clearedMainQuestNumber: 0
   day: 0
   money: 1000

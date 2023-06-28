@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using script.command;
 using script.soldier;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace script.manager
 {
@@ -51,11 +50,11 @@ namespace script.manager
 
         public Soldier PopSoldier(string id)
         {
-            foreach (var soldier in soldiersLeft)
+            foreach (var soldier in wholeSoldiers)
             {
                 if (soldier.id == id)
                 {
-                    soldiersLeft.Remove(soldier);
+                    wholeSoldiers.Remove(soldier);
                     return soldier;
                 }
             }

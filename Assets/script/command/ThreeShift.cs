@@ -5,8 +5,7 @@ namespace script.command
     public class ThreeShift : Command
     {
 
-        private void Start()
-        {
+        public ThreeShift()        {
             id = "ThreeShift";
             commandName = "Three Shift";
             type = Type.Operation;

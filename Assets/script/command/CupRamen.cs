@@ -4,8 +4,7 @@ namespace script.command
 {
     public class CupRamen : Command
     {
-        private void Start()
-        {
+        public CupRamen()        {
             id = "CupRamen";
             commandName = "Cup Ramen";
             type = Type.Operation;

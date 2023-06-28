@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using script.command;
-using script.manager;
 using script.soldier;
 using UnityEngine;
 
@@ -11,7 +10,6 @@ namespace script.player
     [CreateAssetMenu]
     public class Player : ScriptableObject
     {
-
         // public ItemLibrary library = GameManager.Instance.itemLibrary;
         // private List<Manual> manuals;
         // private List<Quest> quests;
@@ -48,8 +46,11 @@ namespace script.player
 
         public void Init(List<Soldier> soldiers, List<Command> commands)
         {
+            Debug.Log("game manager inits the player");
+
             this.soldiers = soldiers;
             this.commands = commands;
+            Debug.Log("player has " + this.soldiers.Count + " soldiers");
         }
 
         public enum Affinity
