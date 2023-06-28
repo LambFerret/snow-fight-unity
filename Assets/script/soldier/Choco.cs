@@ -5,8 +5,8 @@ namespace script.soldier
         public Choco()
         {
             id = "Choco";
-            rangeX = 2;
-            rangeY = 6;
+            rangeX = 1;
+            rangeY = 1;
             speed = 5;
             runAwayProbability = 30;
             rank = Rank.Private;

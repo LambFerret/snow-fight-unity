@@ -6,7 +6,7 @@ namespace script.soldier
         {
             id = "Coffee";
             rangeX = 2;
-            rangeY = 3;
+            rangeY = 1;
             speed = 2;
             runAwayProbability = 10;
             rank = Rank.Private;

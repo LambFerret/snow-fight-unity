@@ -31,6 +31,7 @@ namespace map
         public GameObject commandOverlayGameObject;
         public GameObject soldierOverlayGameObject;
         public GameObject levelAsset;
+        public GameObject textAsset;
         private CommandOverlay _commandOverlay;
 
         protected abstract int[,] GetMaxAmountList();
@@ -96,6 +97,7 @@ namespace map
             // 위치 잡기 and 덱에서 카드 드로우
             RepeatReady();
         }
+
         // ready -> action
         private void InitAction()
         {
@@ -134,12 +136,11 @@ namespace map
                             Soldiers = new List<Soldier>()
                         };
                         var info = _tileGrid[row, col].CurrentAmount + "/" + _tileGrid[row, col].MaxAmount
-                                   + "\n x,y is " + x + " / " + y
-                                   + "\n" + _tileGrid[row, col].Terrain
-                                   + "\n" + currentTile.name;
-                        // var textObj = Instantiate(textPrefab, tilemap.GetCellCenterWorld(tilePos),
-                        //     Quaternion.identity);
-                        // textObj.GetComponent<Text>().text = info;
+                                   + "\n" + _tileGrid[row, col].Terrain;
+                        var parentTransform = GameObject.Find("CanvasOverlay/WorkingPlace").transform;
+                        var textObj = Instantiate(textAsset, tilemap.GetCellCenterWorld(tilePos),
+                        Quaternion.identity, parentTransform);
+                        textObj.GetComponent<Text>().text = info;
                     }
 
                     row++;
@@ -186,19 +187,22 @@ namespace map
         {
             int rows = _tileGrid.GetLength(0);
             int cols = _tileGrid.GetLength(1);
+            var bound = tilemap.cellBounds;
+            int startX = bound.xMin;
+            int startY = bound.yMin;
+            Debug.Log("startX, startY is " + startX + " / " + startY);
             foreach (var s in _workingSoldiers)
             {
                 int i = s.rangeX > cols ? cols : s.rangeX;
                 int j = s.rangeY > rows ? rows : s.rangeY;
-
-                int topLeftCol = Random.Range(0, cols - i);
-                int topLeftRow = Random.Range(0, rows - j);
-
+                int topLeftCol = Random.Range(startX, startX + cols - i);
+                int topLeftRow = Random.Range(startY, startY + rows - j);
+                CreateImageOverlay(topLeftCol, topLeftRow, i, j);
                 for (int row = topLeftRow; row < topLeftRow + j; row++)
                 {
                     for (int col = topLeftCol; col < topLeftCol + i; col++)
                     {
-                        _tileGrid[row, col].Soldiers.Add(s);
+                        _tileGrid[row - startX , col - startY ].Soldiers.Add(s);
                     }
                 }
             }
@@ -245,9 +249,22 @@ namespace map
         {
             foreach (var s in _workingSoldiers)
             {
-                // s.Talent();
-                // Debug.Log(s.name + " / time : " + timing);
+                s.Talent();
             }
+        }
+
+
+        private void CreateImageOverlay(int startX, int startY, int width, int height)
+        {
+            Vector3 topLeftWorldPos = tilemap.CellToWorld(new Vector3Int(startX, startY, 0));
+            Vector3 bottomRightWorldPos = tilemap.CellToWorld(new Vector3Int(startX + width, startY + height, 0));
+            Vector3 centerPos = (topLeftWorldPos + bottomRightWorldPos) / 2;
+            Vector3 size = new Vector3(width * Mathf.Abs(tilemap.cellSize.x), height * Mathf.Abs(tilemap.cellSize.y),
+                1);
+            var imagePrefab = levelAsset.transform.Find("Cloud").gameObject;
+            var parentTransform = GameObject.Find("CanvasOverlay/WorkingPlace").transform;
+            GameObject image = Instantiate(imagePrefab, centerPos, Quaternion.identity, parentTransform);
+            image.transform.localScale = size;
         }
 
         public enum PhaseState

@@ -28,6 +28,7 @@ namespace script.soldier
         public GameObject MakeSoldierCard(GameObject prefab)
         {
             GameObject card = prefab.transform.Find("Card").gameObject;
+            card.SetActive(true);
             var nameText = card.transform.Find("Name").GetComponent<Text>();
             var xText = card.transform.Find("Panel/x/x").GetComponent<Text>();
             var yText = card.transform.Find("Panel/y/y").GetComponent<Text>();
@@ -50,6 +51,7 @@ namespace script.soldier
         public GameObject MakeSoldierStanding(GameObject prefab)
         {
             var stand = prefab.transform.Find("Stand/Character").gameObject;
+            stand.SetActive(true);
             // var standAnimation =
             return stand;
         }

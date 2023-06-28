@@ -5,8 +5,8 @@ namespace script.soldier
         public Vanilla()
         {
             id = "Vanilla";
-            rangeX = 3;
-            rangeY = 4;
+            rangeX = 1;
+            rangeY = 2;
             speed = 3;
             runAwayProbability = 30;
             rank = Rank.Private;
