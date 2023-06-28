@@ -27,18 +27,20 @@ namespace script.command
 
         public GameObject MakeCommandPrefab(GameObject prefab)
         {
-            var nameText = prefab.transform.Find("Card/Paper/commandName").GetComponent<Text>();
-            var effectDescriptionText = prefab.transform.Find("Card/Paper/effectDescription").GetComponent<Text>();
-            // var commandIcon = prefab.transform.Find("Card/Front/Icon").GetComponent<Image>();
-            var costText = prefab.transform.Find("Card/Front/Cost/cost").GetComponent<Text>();
-            var typeText = prefab.transform.Find("Card/Back/type").GetComponent<Text>();
+            GameObject card = prefab.transform.Find("Card").gameObject;
+
+            var nameText = card.transform.Find("Paper/commandName").GetComponent<Text>();
+            var effectDescriptionText = card.transform.Find("Paper/effectDescription").GetComponent<Text>();
+            // var commandIcon = card.transform.Find("Card/Front/Icon").GetComponent<Image>();
+            var costText = card.transform.Find("Front/Cost/cost").GetComponent<Text>();
+            var typeText = card.transform.Find("Back/type").GetComponent<Text>();
 
             nameText.text = commandName;
             effectDescriptionText.text = "effectDescription";
             costText.text = cost.ToString();
             typeText.text = type.ToString();
 
-            return prefab;
+            return card;
         }
 
         public enum Target

@@ -20,7 +20,5 @@ namespace script.Overlay
                 newSlot.transform.SetParent(group.transform, false);
             }
         }
-
-
     }
 }

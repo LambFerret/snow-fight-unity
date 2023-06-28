@@ -33,11 +33,13 @@ namespace script.overlay
 
         private void CreateCommandOverlay()
         {
-            var group = gameObject.GetComponent<HorizontalLayoutGroup>();
+            var group = gameObject.GetComponent<HorizontalLayoutGroup>().transform;
+
             foreach (var command in commandsInHand)
             {
-                var newSlot = command.MakeCommandPrefab(Instantiate(slot));
-                newSlot.transform.SetParent(group.transform, false);
+                Vector3 v = group.position;
+                var a = Instantiate(slot, v, Quaternion.identity, group);
+                command.MakeCommandPrefab(a);
             }
         }
 
@@ -63,6 +65,7 @@ namespace script.overlay
             MakeHandFromDeck();
             CreateCommandOverlay();
         }
+
         private void EndTurn()
         {
             usedCommandList.AddRange(commandsInHand);
