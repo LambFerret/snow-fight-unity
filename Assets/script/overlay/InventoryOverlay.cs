@@ -9,17 +9,16 @@ namespace script.overlay
     public class InventoryOverlay : MonoBehaviour
     {
         public GameObject soldierPrefab;
-        [SerializeField] private Player _player;
 
         private void Start()
         {
-            _player = GameManager.Instance.player;
-            var playerSoldier = _player.soldiers;
+            var player = Player.PlayerInstance;
+            var playerSoldier = player.soldiers;
 
             var group = gameObject.GetComponent<GridLayoutGroup>();
             foreach (var s in playerSoldier)
             {
-                var soldier = s.MakeSoldierCard(Instantiate(soldierPrefab));
+                var soldier = s.MakeSoldierCard(Instantiate(soldierPrefab.transform.Find("Card").gameObject));
                 soldier.transform.SetParent(group.transform, false);
             }
         }

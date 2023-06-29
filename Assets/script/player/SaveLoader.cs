@@ -9,7 +9,6 @@ namespace script.player
 
         public SaveLoader NewSaveFile()
         {
-            player = new Player();
             return this;
         }
         // You could then have methods for saving and loading the save file:
@@ -20,7 +19,6 @@ namespace script.player
 
         public SaveLoader LoadGame()
         {
-            player = new Player();
             return this;
             // Read a file, deserialize it into a SaveFile object, and return it
         }

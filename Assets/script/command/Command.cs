@@ -25,7 +25,7 @@ namespace script.command
 
         public EffectCommand Effect;
 
-        public GameObject MakeCommandPrefab(GameObject prefab)
+        public GameObject MakeCommandCard(GameObject prefab)
         {
             GameObject card = prefab.transform.Find("Card").gameObject;
 
@@ -33,7 +33,7 @@ namespace script.command
             var effectDescriptionText = card.transform.Find("Paper/effectDescription").GetComponent<Text>();
             // var commandIcon = card.transform.Find("Card/Front/Icon").GetComponent<Image>();
             var costText = card.transform.Find("Front/Cost/cost").GetComponent<Text>();
-            var typeText = card.transform.Find("Back/type").GetComponent<Text>();
+            var typeText = card.transform.Find("Back/LabelText").GetComponent<Text>();
 
             nameText.text = commandName;
             effectDescriptionText.text = "effectDescription";

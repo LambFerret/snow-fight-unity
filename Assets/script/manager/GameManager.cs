@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using script.command;
+using script.player;
 using script.soldier;
 
 namespace script.manager
@@ -9,7 +10,6 @@ namespace script.manager
     public class GameManager : Singleton<GameManager>
 
     {
-        public player.Player player;
         public ItemLibrary itemLibrary;
 
         public void Start()
@@ -24,7 +24,7 @@ namespace script.manager
             commands.Add(itemLibrary.PopCommand("CupNoodleXL"));
             commands.Add(itemLibrary.PopCommand("CupRamen"));
 
-            player.Init(soldiers, commands);
+            Player.PlayerInstance.Init(soldiers, commands);
         }
     }
 }

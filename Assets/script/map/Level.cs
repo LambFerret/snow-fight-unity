@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using script.overlay;
 using script.Overlay;
+using script.player;
 using script.soldier;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -15,24 +16,17 @@ namespace map
         private TileData[,] _tileGrid;
         private int[,] _maxAmount;
         private int[,] _terrain;
-        private int _phaseNumber = 0;
-        private int _maxPhaseNumber;
-        public PhaseState currentState;
         public int maxSnowAmount;
         public int minSnowAmount;
         public int maxSoliderCapacity;
         public Region region;
-        private List<Soldier> _workingSoldiers = new List<Soldier>();
-
         public Tilemap tilemap;
-        public script.player.Player player;
         public GameObject victoryPanel;
         public GameObject defeatPanel;
-        public GameObject commandOverlayGameObject;
-        public GameObject soldierOverlayGameObject;
+        public SoldierOverlay soldierOverlay;
+        public CommandOverlay commandOverlay;
         public GameObject levelAsset;
         public GameObject textAsset;
-        private CommandOverlay _commandOverlay;
 
         protected abstract int[,] GetMaxAmountList();
         protected abstract int[,] GetTerrainList();
@@ -43,75 +37,6 @@ namespace map
             _terrain = GetTerrainList();
             Check();
             MakeMapData();
-            currentState = PhaseState.Pre;
-            _maxPhaseNumber = 1 + ((int)region + 2) * 2;
-            _commandOverlay = commandOverlayGameObject.GetComponent<CommandOverlay>();
-        }
-
-        public void NextPhase()
-        {
-            switch (currentState)
-            {
-                case PhaseState.Pre:
-                    currentState = PhaseState.Ready;
-                    InitReady();
-                    Debug.Log("Pre to Ready");
-                    break;
-                case PhaseState.Ready:
-                    currentState = PhaseState.Action;
-                    InitAction();
-                    Debug.Log("Ready to action");
-                    break;
-                case PhaseState.Action:
-                    if (_phaseNumber < _maxPhaseNumber)
-                    {
-                        currentState = PhaseState.Ready;
-                        RepeatReady();
-                        Debug.Log("action to ready");
-                    }
-                    else
-                    {
-                        if (player.snowAmount >= minSnowAmount)
-                        {
-                            Debug.Log("win");
-                            victoryPanel.SetActive(true);
-                        }
-                        else
-                        {
-                            Debug.Log("lose");
-                            defeatPanel.SetActive(true);
-                        }
-                    }
-
-                    break;
-            }
-
-            _phaseNumber++;
-        }
-
-        // pre -> ready
-        private void InitReady()
-        {
-            // 스테이지에 있을 병사 선발
-            SetSoldier();
-            // 위치 잡기 and 덱에서 카드 드로우
-            RepeatReady();
-        }
-
-        // ready -> action
-        private void InitAction()
-        {
-            // 일하세요
-            HappyWorking();
-        }
-
-        // action -> ready
-        private void RepeatReady()
-        {
-            // 위치 잡기
-            LocateWorkingPlace();
-            // 카드 드로우
-            _commandOverlay.StartTurn();
         }
 
         private void MakeMapData()
@@ -163,35 +88,14 @@ namespace map
             _height = _maxAmount.GetLength(1);
         }
 
-        private void SetSoldier()
-        {
-            if (player.soldiers.Count <= maxSoliderCapacity)
-            {
-                _workingSoldiers.AddRange(player.soldiers);
-            }
-            else
-            {
-                for (int i = 0; i < maxSoliderCapacity; i++)
-                {
-                    int randomSoldierFromPlayer = Random.Range(0, player.soldiers.Count);
-                    Soldier randomSoldier = player.soldiers[randomSoldierFromPlayer];
-                    _workingSoldiers[i] = randomSoldier;
-                }
-            }
-
-            soldierOverlayGameObject.GetComponent<SoldierOverlay>().SetWorkingSolider(_workingSoldiers);
-            EffectTalent(TalentTiming.VictimSelected);
-        }
-
-        private void LocateWorkingPlace()
+        public void LocateWorkingPlace()
         {
             int rows = _tileGrid.GetLength(0);
             int cols = _tileGrid.GetLength(1);
             var bound = tilemap.cellBounds;
             int startX = bound.xMin;
             int startY = bound.yMin;
-            Debug.Log("startX, startY is " + startX + " / " + startY);
-            foreach (var s in _workingSoldiers)
+            foreach (var s in soldierOverlay.soldiers)
             {
                 int i = s.rangeX > cols ? cols : s.rangeX;
                 int j = s.rangeY > rows ? rows : s.rangeY;
@@ -207,12 +111,13 @@ namespace map
                 }
             }
 
-            EffectTalent(TalentTiming.Located);
+            soldierOverlay.EffectTalent(TalentTiming.Located);
         }
 
-        private void HappyWorking()
+        public void HappyWorking()
         {
-            EffectTalent(TalentTiming.WorkBefore);
+            Player player = Player.PlayerInstance;
+            soldierOverlay.EffectTalent(TalentTiming.WorkBefore);
             for (int i = 0; i < _tileGrid.GetLength(0); i++)
             {
                 for (int j = 0; j < _tileGrid.GetLength(1); j++)
@@ -242,17 +147,8 @@ namespace map
                 }
             }
 
-            EffectTalent(TalentTiming.WorkAfter);
+            soldierOverlay.EffectTalent(TalentTiming.WorkAfter);
         }
-
-        private void EffectTalent(TalentTiming timing)
-        {
-            foreach (var s in _workingSoldiers)
-            {
-                s.Talent();
-            }
-        }
-
 
         private void CreateImageOverlay(int startX, int startY, int width, int height)
         {
@@ -267,12 +163,7 @@ namespace map
             image.transform.localScale = size;
         }
 
-        public enum PhaseState
-        {
-            Pre,
-            Ready,
-            Action
-        }
+
 
         public enum TalentTiming
         {

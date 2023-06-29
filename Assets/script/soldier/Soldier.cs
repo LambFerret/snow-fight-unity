@@ -25,10 +25,8 @@ namespace script.soldier
 
         public EffectTalent Talent;
 
-        public GameObject MakeSoldierCard(GameObject prefab)
+        public GameObject MakeSoldierCard(GameObject card)
         {
-            GameObject card = prefab.transform.Find("Card").gameObject;
-            card.SetActive(true);
             var nameText = card.transform.Find("Name").GetComponent<Text>();
             var xText = card.transform.Find("Panel/x/x").GetComponent<Text>();
             var yText = card.transform.Find("Panel/y/y").GetComponent<Text>();
@@ -50,8 +48,7 @@ namespace script.soldier
 
         public GameObject MakeSoldierStanding(GameObject prefab)
         {
-            var stand = prefab.transform.Find("Stand/Character").gameObject;
-            stand.SetActive(true);
+            var stand = prefab.transform.Find("Character").gameObject;
             // var standAnimation =
             return stand;
         }
