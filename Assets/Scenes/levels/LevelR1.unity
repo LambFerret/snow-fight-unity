@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e5bcce9d064c71afa327838c414dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slot: {fileID: 7010789610913403217, guid: 1ef6011f0938746f399b5716ccd060bb, type: 3}
+  prefab: {fileID: 7010789610913403217, guid: 1ef6011f0938746f399b5716ccd060bb, type: 3}
   totalDeck: []
   usedCommandList: []
   removalFromGameCommandList: []
@@ -1029,7 +1029,6 @@ MonoBehaviour:
   maxSoliderCapacity: 5
   region: 0
   tilemap: {fileID: 609487714}
-  player: {fileID: 11400000, guid: 12a1b4cee449b4298be9b48e16c572fd, type: 2}
   victoryPanel: {fileID: 943519867}
   defeatPanel: {fileID: 2004299986}
   soldierOverlay: {fileID: 1831866161}
@@ -1675,7 +1674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soldiers: []
-  soldierPrefab: {fileID: 642550613030470595, guid: 9a227a20dfc8a4526ac5f79b07682452, type: 3}
+  prefab: {fileID: 642550613030470595, guid: 9a227a20dfc8a4526ac5f79b07682452, type: 3}
 --- !u!114 &1831866162
 MonoBehaviour:
   m_ObjectHideFlags: 0

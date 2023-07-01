@@ -1,5 +1,6 @@
 using System;
 using map;
+using script.component;
 using script.overlay;
 using script.Overlay;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 
 namespace script.manager
 {
-    public class PhaseSystem : MonoBehaviour
+    public class PhaseSystem : Subject
     {
         public PhaseState currentPhase;
         public int currentPhaseNumber;
@@ -22,6 +23,7 @@ namespace script.manager
             _soldierOverlay = currentLevel.soldierOverlay;
             currentPhase = PhaseState.Pre;
             currentPhaseNumber = 1;
+            _soldierOverlay.DispatchSoldiers(currentLevel.maxSoliderCapacity);
         }
 
         private void Update()
@@ -38,7 +40,6 @@ namespace script.manager
                 case PhaseState.Pre:
                     currentPhase = PhaseState.Ready;
                     // 스테이지에 있을 병사 선발
-                    _soldierOverlay.DispatchSoldiers(currentLevel.maxSoliderCapacity);
                     WhenStartPhase();
                     break;
 
@@ -71,6 +72,7 @@ namespace script.manager
 
         private void WhenStartPhase()
         {
+            currentLevel.ResetWorkingPlace();
             // 위치 잡기
             currentLevel.LocateWorkingPlace();
             // 카드 드로우

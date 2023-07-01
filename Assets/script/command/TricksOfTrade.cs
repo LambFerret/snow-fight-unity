@@ -18,10 +18,9 @@ namespace script.command
             isReusable = true;
             usedCount = 1;
             targetCount = 1;
-            Effect = UniqueEffect;
         }
 
-        private void UniqueEffect()
+        public new void Effect()
         {
         }
     }

@@ -1,5 +1,3 @@
-using System;
-using script.manager;
 using script.player;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,11 +12,12 @@ namespace script.overlay
         {
             var player = Player.PlayerInstance;
             var playerSoldier = player.soldiers;
+            var card = soldierPrefab.transform.Find("Card").gameObject;
 
             var group = gameObject.GetComponent<GridLayoutGroup>();
             foreach (var s in playerSoldier)
             {
-                var soldier = s.MakeSoldierCard(Instantiate(soldierPrefab.transform.Find("Card").gameObject));
+                var soldier = s.MakeSoldierCard(Instantiate(card));
                 soldier.transform.SetParent(group.transform, false);
             }
         }

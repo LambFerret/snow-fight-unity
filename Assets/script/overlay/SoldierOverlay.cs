@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using map;
 using script.player;
@@ -12,13 +11,9 @@ namespace script.Overlay
     public class SoldierOverlay : MonoBehaviour
     {
         public List<Soldier> soldiers;
-        public GameObject soldierPrefab;
-        private GameObject _soldierStand;
 
-        private void Start()
-        {
-            _soldierStand = soldierPrefab.transform.Find("Stand").gameObject;
-        }
+        public GameObject prefab;
+        // private GameObject _stand;
 
         public void DispatchSoldiers(int maxSoliderCapacity)
         {
@@ -36,15 +31,19 @@ namespace script.Overlay
                     soldiers.Add(randomSoldier);
                 }
             }
+
             MakeSoldierOverlay();
         }
 
         private void MakeSoldierOverlay()
         {
+            var stand = prefab.transform.Find("Stand").gameObject;
+
             var group = gameObject.GetComponent<HorizontalLayoutGroup>();
             foreach (var soldier in soldiers)
             {
-                var newSlot = soldier.MakeSoldierStanding(Instantiate(_soldierStand));
+                var newSlot = soldier.MakeSoldierStanding(Instantiate(stand));
+
                 newSlot.transform.SetParent(group.transform, false);
             }
         }

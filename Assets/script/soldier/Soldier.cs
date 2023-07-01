@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace script.soldier
 {
     [Serializable]
-    public class Soldier :MonoBehaviour
+    public class Soldier
     {
         public string id;
         public string soldierName;
@@ -46,10 +46,11 @@ namespace script.soldier
             return card;
         }
 
-        public GameObject MakeSoldierStanding(GameObject prefab)
+        public GameObject MakeSoldierStanding(GameObject stand)
         {
-            var stand = prefab.transform.Find("Character").gameObject;
+            stand.transform.Find("Character/Name").GetComponent<Text>().text = id;
             // var standAnimation =
+
             return stand;
         }
 
@@ -82,11 +83,11 @@ namespace script.soldier
         {
             Recruit = int.MaxValue,
             Private = int.MaxValue,
-            PrivateFirstclass = int.MaxValue,
+            PrivateFirstClass = int.MaxValue,
             Corporal = int.MaxValue,
             Sergeant = int.MaxValue,
             StaffSergeant = int.MaxValue,
-            SergeantFirstclass = int.MaxValue,
+            SergeantFirstClass = int.MaxValue,
             FirstSergeant = int.MaxValue,
             SergentMajor = int.MaxValue,
             CommandSergeantMajor = int.MaxValue,

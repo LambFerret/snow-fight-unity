@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace script.command
 {
     [Serializable]
-    public class Command
+    public class Command : IEffectBehavior
     {
         public string id;
         public string commandName;
@@ -21,9 +21,10 @@ namespace script.command
         public int usedCount;
         public int targetCount;
 
-        public delegate void EffectCommand();
+        public void Effect()
+        {
 
-        public EffectCommand Effect;
+        }
 
         public GameObject MakeCommandCard(GameObject prefab)
         {

@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using script.command;
+using script.component;
 using script.player;
 using script.soldier;
 

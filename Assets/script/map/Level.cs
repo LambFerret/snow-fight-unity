@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using script.overlay;
 using script.Overlay;
@@ -6,6 +7,7 @@ using script.soldier;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace map
 {
@@ -13,7 +15,7 @@ namespace map
     {
         private int _width;
         private int _height;
-        private TileData[,] _tileGrid;
+        [SerializeField] private TileData[,] _tileGrid;
         private int[,] _maxAmount;
         private int[,] _terrain;
         public int maxSnowAmount;
@@ -28,11 +30,14 @@ namespace map
         public GameObject levelAsset;
         public GameObject textAsset;
 
+        private GameObject _workingPlace;
+
         protected abstract int[,] GetMaxAmountList();
         protected abstract int[,] GetTerrainList();
 
         private void Start()
         {
+            _workingPlace = GameObject.Find("CanvasOverlay/WorkingPlace");
             _maxAmount = GetMaxAmountList();
             _terrain = GetTerrainList();
             Check();
@@ -61,10 +66,10 @@ namespace map
                             Soldiers = new List<Soldier>()
                         };
                         var info = _tileGrid[row, col].CurrentAmount + "/" + _tileGrid[row, col].MaxAmount
-                                   + "\n" + _tileGrid[row, col].Terrain;
+                                   + "\n" + row + " / " + col;
                         var parentTransform = GameObject.Find("CanvasOverlay/WorkingPlace").transform;
                         var textObj = Instantiate(textAsset, tilemap.GetCellCenterWorld(tilePos),
-                        Quaternion.identity, parentTransform);
+                            Quaternion.identity, parentTransform);
                         textObj.GetComponent<Text>().text = info;
                     }
 
@@ -101,12 +106,12 @@ namespace map
                 int j = s.rangeY > rows ? rows : s.rangeY;
                 int topLeftCol = Random.Range(startX, startX + cols - i);
                 int topLeftRow = Random.Range(startY, startY + rows - j);
-                CreateImageOverlay(topLeftCol, topLeftRow, i, j);
+                CreateImageOverlay(topLeftCol, topLeftRow, i, j, s);
                 for (int row = topLeftRow; row < topLeftRow + j; row++)
                 {
                     for (int col = topLeftCol; col < topLeftCol + i; col++)
                     {
-                        _tileGrid[row - startX , col - startY ].Soldiers.Add(s);
+                        _tileGrid[row - startX, col - startY].Soldiers.Add(s);
                     }
                 }
             }
@@ -150,19 +155,46 @@ namespace map
             soldierOverlay.EffectTalent(TalentTiming.WorkAfter);
         }
 
-        private void CreateImageOverlay(int startX, int startY, int width, int height)
+        private void CreateImageOverlay(int startX, int startY, int width, int height, Soldier soldier)
         {
             Vector3 topLeftWorldPos = tilemap.CellToWorld(new Vector3Int(startX, startY, 0));
             Vector3 bottomRightWorldPos = tilemap.CellToWorld(new Vector3Int(startX + width, startY + height, 0));
             Vector3 centerPos = (topLeftWorldPos + bottomRightWorldPos) / 2;
-            Vector3 size = new Vector3(width * Mathf.Abs(tilemap.cellSize.x), height * Mathf.Abs(tilemap.cellSize.y),
-                1);
             var imagePrefab = levelAsset.transform.Find("Cloud").gameObject;
             var parentTransform = GameObject.Find("CanvasOverlay/WorkingPlace").transform;
             GameObject image = Instantiate(imagePrefab, centerPos, Quaternion.identity, parentTransform);
-            image.transform.localScale = size;
+            image.transform.localScale = new Vector3(width * Mathf.Abs(tilemap.cellSize.x),
+                height * Mathf.Abs(tilemap.cellSize.y), 1);
+            var soldierImage =
+                soldier.MakeSoldierStanding(Instantiate(soldierOverlay.prefab.transform.Find("Stand").gameObject,
+                    centerPos, Quaternion.identity, image.transform));
+            soldierImage.transform.localScale =
+                new Vector3(Mathf.Abs(tilemap.cellSize.x), Mathf.Abs(tilemap.cellSize.y), 1);
         }
 
+        public void ResetWorkingPlace()
+        {
+            int i = 0;
+            foreach (Transform child in _workingPlace.transform)
+            {
+                if (child.gameObject.name.Contains("Cloud"))
+                {
+                    Destroy(child.gameObject);
+                }
+                else if (child.gameObject.name.Contains("Text"))
+                {
+                    int col = i % _width;
+                    int row = i / _width;
+                    var info = _tileGrid[row, col].CurrentAmount + "/" + _tileGrid[row, col].MaxAmount
+                               + "\n" + row + " / " + col;
+                    child.GetComponent<Text>().text = info;
+                }
+            }
+        }
+
+        private void Update()
+        {
+        }
 
 
         public enum TalentTiming

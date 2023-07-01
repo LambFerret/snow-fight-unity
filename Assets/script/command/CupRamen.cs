@@ -1,10 +1,12 @@
 using System;
+using UnityEngine;
 
 namespace script.command
 {
     public class CupRamen : Command
     {
-        public CupRamen()        {
+        public CupRamen()
+        {
             id = "CupRamen";
             commandName = "Cup Ramen";
             type = Type.Operation;
@@ -18,11 +20,11 @@ namespace script.command
             isReusable = true;
             usedCount = 1;
             targetCount = 1;
-            Effect = UniqueEffect;
         }
 
-        private void UniqueEffect()
+        public new void Effect()
         {
+            Debug.Log("CR");
 
         }
     }

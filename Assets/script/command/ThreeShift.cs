@@ -1,11 +1,11 @@
-using System;
+using UnityEngine;
 
 namespace script.command
 {
     public class ThreeShift : Command
     {
-
-        public ThreeShift()        {
+        public ThreeShift()
+        {
             id = "ThreeShift";
             commandName = "Three Shift";
             type = Type.Operation;
@@ -19,12 +19,11 @@ namespace script.command
             isReusable = true;
             usedCount = 1;
             targetCount = 1;
-            Effect = UniqueEffect;
         }
 
-        private void UniqueEffect()
+        public new void Effect()
         {
-
+            Debug.Log("ThreeShift");
         }
     }
 }

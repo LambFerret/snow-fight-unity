@@ -45,6 +45,7 @@ namespace script.manager
                     return soldier;
                 }
             }
+
             return null;
         }
 
@@ -58,6 +59,7 @@ namespace script.manager
                     return soldier;
                 }
             }
+
             return null;
         }
 
@@ -70,6 +72,7 @@ namespace script.manager
                     return command;
                 }
             }
+
             return null;
         }
 
@@ -83,9 +86,8 @@ namespace script.manager
                     return command;
                 }
             }
+
             return null;
         }
-
-
     }
 }
