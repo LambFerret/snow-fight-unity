@@ -27,6 +27,7 @@ namespace map
         public GameObject defeatPanel;
         public SoldierOverlay soldierOverlay;
         public CommandOverlay commandOverlay;
+        public SnowBarOverlay snowBarOverlay;
         public GameObject levelAsset;
         public GameObject textAsset;
 
@@ -42,6 +43,7 @@ namespace map
             _terrain = GetTerrainList();
             Check();
             MakeMapData();
+            snowBarOverlay.SetMaxSnowAmount(maxSnowAmount);
         }
 
         private void MakeMapData()
@@ -65,12 +67,9 @@ namespace map
                             MaxAmount = _maxAmount[row, col],
                             Soldiers = new List<Soldier>()
                         };
-                        var info = _tileGrid[row, col].CurrentAmount + "/" + _tileGrid[row, col].MaxAmount
-                                   + "\n" + row + " / " + col;
                         var parentTransform = _workingPlace.transform.Find("TileLabelPlace").transform;
-                        var textObj = Instantiate(textAsset, tilemap.GetCellCenterWorld(tilePos),
-                            Quaternion.identity, parentTransform);
-                        textObj.GetComponent<Text>().text = info;
+                        Instantiate(textAsset, tilemap.GetCellCenterWorld(tilePos), Quaternion.identity,
+                            parentTransform);
                     }
 
                     row++;
@@ -79,6 +78,8 @@ namespace map
                 row = 0;
                 col++;
             }
+
+            LabelingTiles();
         }
 
         private void Check()
@@ -153,6 +154,7 @@ namespace map
             }
 
             LabelingTiles();
+            Debug.Log(player.snowAmount + " / " + maxSnowAmount);
             soldierOverlay.EffectTalent(TalentTiming.WorkAfter);
         }
 
@@ -202,8 +204,7 @@ namespace map
                     int row = i % _width;
                     int col = i / _width;
                     i++;
-                    var info = _tileGrid[row, col].CurrentAmount + "/" + _tileGrid[row, col].MaxAmount
-                               + "\n" + row + " / " + col;
+                    var info = _tileGrid[row, col].CurrentAmount + "/" + _tileGrid[row, col].MaxAmount;
                     child.GetComponent<Text>().text = info;
                 }
             }

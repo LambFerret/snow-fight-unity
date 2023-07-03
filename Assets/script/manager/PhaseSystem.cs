@@ -3,6 +3,7 @@ using map;
 using script.component;
 using script.overlay;
 using script.Overlay;
+using script.player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -62,6 +63,14 @@ namespace script.manager
                     {
                         phaseText.text = currentPhaseNumber.ToString();
                         currentPhase = PhaseState.Post;
+                        if (Player.PlayerInstance.snowAmount < currentLevel.minSnowAmount)
+                        {
+                            currentLevel.defeatPanel.SetActive(true);
+                        }
+                        else
+                        {
+                            currentLevel.victoryPanel.SetActive(true);
+                        }
                     }
                     break;
 

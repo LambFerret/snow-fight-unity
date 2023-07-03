@@ -51,6 +51,7 @@ namespace script.player
             money = 1000;
             maxCost = 15;
             currentCost = maxCost;
+            snowAmount = 0;
             difficulty = 0;
             clearedMainQuestNumber = 0;
             downAffinity = 10;

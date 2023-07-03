@@ -12,15 +12,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b7d16abd71c45fd87d1d3814e8ce91, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  soldiers: []
-  commands: []
+  soldiers:
+  - id: Vanilla
+    soldierName: 
+    rangeX: 1
+    rangeY: 2
+    speed: 9
+    runAwayProbability: 30
+    preferenceTerrain: []
+    rank: 2147483647
+    branch: 1
+    empowerLevel: 1
+    branchValue: 100
+  - id: Choco
+    soldierName: 
+    rangeX: 1
+    rangeY: 1
+    speed: 11
+    runAwayProbability: 30
+    preferenceTerrain: []
+    rank: 2147483647
+    branch: 1
+    empowerLevel: 1
+    branchValue: 100
+  - id: Chili
+    soldierName: 
+    rangeX: 2
+    rangeY: 2
+    speed: 16
+    runAwayProbability: 30
+    preferenceTerrain: []
+    rank: 2147483647
+    branch: 1
+    empowerLevel: 1
+    branchValue: 100
+  commands:
+  - id: CupNoodle
+    commandName: Cup Noodle
+    type: 0
+    cost: 3
+    target: 1
+    rarity: 0
+    price: 300
+    affectToUp: 1
+    affectToMiddle: 1
+    affectToDown: 1
+    isReusable: 1
+    usedCount: 1
+    targetCount: 1
+  - id: CupNoodleXL
+    commandName: Cup Noodle XL
+    type: 0
+    cost: 3
+    target: 1
+    rarity: 0
+    price: 300
+    affectToUp: 1
+    affectToMiddle: 1
+    affectToDown: 1
+    isReusable: 1
+    usedCount: 1
+    targetCount: 1
+  - id: CupRamen
+    commandName: Cup Ramen
+    type: 0
+    cost: 3
+    target: 1
+    rarity: 0
+    price: 300
+    affectToUp: 1
+    affectToMiddle: 1
+    affectToDown: 1
+    isReusable: 1
+    usedCount: 1
+    targetCount: 1
   clearedMainQuestNumber: 0
   day: 0
   money: 1000
   maxCost: 15
   difficulty: 0
   currentCost: 15
-  snowAmount: 0
+  snowAmount: 177
   middleAffinity: 50
   downAffinity: 10
   upperAffinity: 10
