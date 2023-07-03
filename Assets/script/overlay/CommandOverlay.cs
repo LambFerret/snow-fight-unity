@@ -92,7 +92,6 @@ namespace script.overlay
         public void EndTurn()
         {
             usedCommandList.AddRange(hand);
-            foreach (Transform child in transform) Destroy(child.gameObject);
             hand.Clear();
             _commandToGameObjectMap.Clear();
         }
