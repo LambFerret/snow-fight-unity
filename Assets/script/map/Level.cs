@@ -154,6 +154,7 @@ namespace map
             }
 
             LabelingTiles();
+            SetSoldierAnimation(true);
             Debug.Log(player.snowAmount + " / " + maxSnowAmount);
             soldierOverlay.EffectTalent(TalentTiming.WorkAfter);
         }
@@ -179,6 +180,14 @@ namespace map
             var soldierImage = soldier.MakeSoldierStanding(stand);
             image.transform.localScale = new Vector3(width * cellX, height * cellY, 1);
             soldierImage.transform.localScale = new Vector3(cellX, cellY, 1);
+        }
+
+        public void SetSoldierAnimation(bool isWorking)
+        {
+            foreach (Transform soldier in _workingPlace.transform.Find("StandPlace").transform)
+            {
+                soldier.GetComponent<Animator>().SetBool("isWorking", isWorking);
+            }
         }
 
         public void ResetWorkingPlace()

@@ -17,7 +17,7 @@ MonoBehaviour:
     soldierName: 
     rangeX: 1
     rangeY: 2
-    speed: 9
+    speed: 4
     runAwayProbability: 30
     preferenceTerrain: []
     rank: 2147483647
@@ -28,7 +28,7 @@ MonoBehaviour:
     soldierName: 
     rangeX: 1
     rangeY: 1
-    speed: 11
+    speed: 6
     runAwayProbability: 30
     preferenceTerrain: []
     rank: 2147483647
@@ -39,7 +39,7 @@ MonoBehaviour:
     soldierName: 
     rangeX: 2
     rangeY: 2
-    speed: 16
+    speed: 11
     runAwayProbability: 30
     preferenceTerrain: []
     rank: 2147483647
@@ -92,7 +92,7 @@ MonoBehaviour:
   maxCost: 15
   difficulty: 0
   currentCost: 15
-  snowAmount: 177
+  snowAmount: 0
   middleAffinity: 50
   downAffinity: 10
   upperAffinity: 10

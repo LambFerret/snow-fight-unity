@@ -52,6 +52,7 @@ namespace script.manager
                     break;
 
                 case PhaseState.Action:
+                    currentLevel.SetSoldierAnimation(false);
                     if (currentPhaseNumber < maxPhaseNumber)
                     {
                         currentPhaseNumber++;
