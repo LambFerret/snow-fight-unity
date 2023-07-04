@@ -17,7 +17,7 @@ MonoBehaviour:
     soldierName: 
     rangeX: 1
     rangeY: 2
-    speed: 4
+    speed: 9
     runAwayProbability: 30
     preferenceTerrain: []
     rank: 2147483647
@@ -28,7 +28,7 @@ MonoBehaviour:
     soldierName: 
     rangeX: 1
     rangeY: 1
-    speed: 6
+    speed: 11
     runAwayProbability: 30
     preferenceTerrain: []
     rank: 2147483647
@@ -39,7 +39,7 @@ MonoBehaviour:
     soldierName: 
     rangeX: 2
     rangeY: 2
-    speed: 11
+    speed: 16
     runAwayProbability: 30
     preferenceTerrain: []
     rank: 2147483647
@@ -47,6 +47,84 @@ MonoBehaviour:
     empowerLevel: 1
     branchValue: 100
   commands:
+  - id: CupNoodle
+    commandName: Cup Noodle
+    type: 0
+    cost: 3
+    target: 1
+    rarity: 0
+    price: 300
+    affectToUp: 1
+    affectToMiddle: 1
+    affectToDown: 1
+    isReusable: 1
+    usedCount: 1
+    targetCount: 1
+  - id: CupNoodle
+    commandName: Cup Noodle
+    type: 0
+    cost: 3
+    target: 1
+    rarity: 0
+    price: 300
+    affectToUp: 1
+    affectToMiddle: 1
+    affectToDown: 1
+    isReusable: 1
+    usedCount: 1
+    targetCount: 1
+  - id: CupNoodle
+    commandName: Cup Noodle
+    type: 0
+    cost: 3
+    target: 1
+    rarity: 0
+    price: 300
+    affectToUp: 1
+    affectToMiddle: 1
+    affectToDown: 1
+    isReusable: 1
+    usedCount: 1
+    targetCount: 1
+  - id: CupNoodle
+    commandName: Cup Noodle
+    type: 0
+    cost: 3
+    target: 1
+    rarity: 0
+    price: 300
+    affectToUp: 1
+    affectToMiddle: 1
+    affectToDown: 1
+    isReusable: 1
+    usedCount: 1
+    targetCount: 1
+  - id: CupNoodle
+    commandName: Cup Noodle
+    type: 0
+    cost: 3
+    target: 1
+    rarity: 0
+    price: 300
+    affectToUp: 1
+    affectToMiddle: 1
+    affectToDown: 1
+    isReusable: 1
+    usedCount: 1
+    targetCount: 1
+  - id: CupNoodle
+    commandName: Cup Noodle
+    type: 0
+    cost: 3
+    target: 1
+    rarity: 0
+    price: 300
+    affectToUp: 1
+    affectToMiddle: 1
+    affectToDown: 1
+    isReusable: 1
+    usedCount: 1
+    targetCount: 1
   - id: CupNoodle
     commandName: Cup Noodle
     type: 0
@@ -92,9 +170,9 @@ MonoBehaviour:
   maxCost: 15
   difficulty: 0
   currentCost: 15
-  snowAmount: 0
+  snowAmount: 208
   middleAffinity: 50
   downAffinity: 10
   upperAffinity: 10
   maxManualCapacity: 3
-  maxCommandInHand: 5
+  maxCommandInHand: 2

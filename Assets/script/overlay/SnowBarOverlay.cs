@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using script.player;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +10,7 @@ namespace script.overlay
         public int currentSnowAmount;
         private Slider _slider;
         private Player _player;
-        public float speed = 0.5f;
+        public float speed = 20;
 
         private void Start()
         {

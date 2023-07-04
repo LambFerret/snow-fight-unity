@@ -21,9 +21,15 @@ namespace script.manager
             soldiers.Add(itemLibrary.PopSoldier("Vanilla"));
             soldiers.Add(itemLibrary.PopSoldier("Choco"));
             soldiers.Add(itemLibrary.PopSoldier("Chili"));
-            commands.Add(itemLibrary.PopCommand("CupNoodle"));
-            commands.Add(itemLibrary.PopCommand("CupNoodleXL"));
-            commands.Add(itemLibrary.PopCommand("CupRamen"));
+            commands.Add(itemLibrary.GetCommand("CupNoodle"));
+            commands.Add(itemLibrary.GetCommand("CupNoodle"));
+            commands.Add(itemLibrary.GetCommand("CupNoodle"));
+            commands.Add(itemLibrary.GetCommand("CupNoodle"));
+            commands.Add(itemLibrary.GetCommand("CupNoodle"));
+            commands.Add(itemLibrary.GetCommand("CupNoodle"));
+            commands.Add(itemLibrary.GetCommand("CupNoodle"));
+            commands.Add(itemLibrary.GetCommand("CupNoodleXL"));
+            commands.Add(itemLibrary.GetCommand("CupRamen"));
 
             Player.PlayerInstance.Init(soldiers, commands);
         }
