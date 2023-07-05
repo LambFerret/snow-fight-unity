@@ -1,19 +1,22 @@
+using System;
+
 namespace script.player
 {
-    [System.Serializable]
+    [Serializable]
     public class Item
     {
-        public ItemType Type {get;}
-        public string ID {get;}
-
-        public enum ItemType {
+        public enum ItemType
+        {
             Soldier,
             Command,
             Manual,
             Quest,
             Event,
             Buff,
-            Map,
+            Map
         }
+
+        public ItemType Type { get; }
+        public string ID { get; }
     }
 }

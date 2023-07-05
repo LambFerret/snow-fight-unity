@@ -1,5 +1,8 @@
+using UnityEngine;
+
 namespace script.soldier
 {
+    [CreateAssetMenu(fileName = "Choco", menuName = "Scriptable Objects/soldier/Choco")]
     public class Choco : Soldier
     {
         public Choco()
@@ -11,10 +14,9 @@ namespace script.soldier
             runAwayProbability = 30;
             rank = Rank.Private;
             branch = Branch.Administrative;
-            Talent = UniqueTalent;
-        }
+                    }
 
-        private void UniqueTalent()
+        public override void Talent()
         {
             speed += 1;
         }

@@ -1,4 +1,3 @@
-using System;
 using script.manager;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,13 +18,9 @@ namespace script.overlay
         private void Update()
         {
             if (system.currentPhase == PhaseSystem.PhaseState.Post)
-            {
                 _button.interactable = false;
-            }
             else
-            {
                 _button.interactable = true;
-            }
         }
     }
 }

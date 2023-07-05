@@ -8,6 +8,14 @@ namespace Scenes
         public Button newGameButton, loadGameButton, optionButton, quitButton;
         public GameObject newGameCanvas, loadGameCanvas, optionCanvas;
 
+        private void Start()
+        {
+            newGameButton.onClick.AddListener(ToggleNewGameCanvas);
+            loadGameButton.onClick.AddListener(ToggleLoadGameCanvas);
+            optionButton.onClick.AddListener(ToggleOptionCanvas);
+            quitButton.onClick.AddListener(QuitGame);
+        }
+
 
         private void ToggleNewGameCanvas()
         {
@@ -28,14 +36,6 @@ namespace Scenes
         {
             Debug.Log("Quit");
             Application.Quit();
-        }
-
-        private void Start()
-        {
-            newGameButton.onClick.AddListener(ToggleNewGameCanvas);
-            loadGameButton.onClick.AddListener(ToggleLoadGameCanvas);
-            optionButton.onClick.AddListener(ToggleOptionCanvas);
-            quitButton.onClick.AddListener(QuitGame);
         }
     }
 }

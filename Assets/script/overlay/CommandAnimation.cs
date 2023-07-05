@@ -5,9 +5,9 @@ namespace script.overlay
     public class CommandAnimation : MonoBehaviour
     {
         private Animator _animator;
-        private int _isEnteredHash;
         private int _isClickedHash;
         private int _isDisabledHash;
+        private int _isEnteredHash;
 
         private void Awake()
         {

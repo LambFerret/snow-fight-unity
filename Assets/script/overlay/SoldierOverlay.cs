@@ -4,7 +4,6 @@ using script.player;
 using script.soldier;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace script.Overlay
 {
@@ -17,20 +16,16 @@ namespace script.Overlay
 
         public void DispatchSoldiers(int maxSoliderCapacity)
         {
-            Player player = Player.PlayerInstance;
+            var player = Player.PlayerInstance;
             if (player.soldiers.Count <= maxSoliderCapacity)
-            {
                 soldiers.AddRange(player.soldiers);
-            }
             else
-            {
-                for (int i = 0; i < maxSoliderCapacity; i++)
+                for (var i = 0; i < maxSoliderCapacity; i++)
                 {
-                    int randomSoldierFromPlayer = Random.Range(0, player.soldiers.Count);
-                    Soldier randomSoldier = player.soldiers[randomSoldierFromPlayer];
+                    var randomSoldierFromPlayer = Random.Range(0, player.soldiers.Count);
+                    var randomSoldier = player.soldiers[randomSoldierFromPlayer];
                     soldiers.Add(randomSoldier);
                 }
-            }
 
             MakeSoldierOverlay();
         }
@@ -50,10 +45,7 @@ namespace script.Overlay
 
         public void EffectTalent(Level.TalentTiming timing)
         {
-            foreach (var s in soldiers)
-            {
-                s.Talent();
-            }
+            foreach (var s in soldiers) s.Talent();
         }
     }
 }

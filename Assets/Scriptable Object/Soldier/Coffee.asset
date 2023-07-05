@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99307db4e24a49618b0952a8e74c6f53, type: 3}
+  m_Name: Coffee
+  m_EditorClassIdentifier: 
+  id: Coffee
+  soldierName: 
+  rangeX: 2
+  rangeY: 1
+  speed: 2
+  runAwayProbability: 10
+  preferenceTerrain: []
+  rank: 2147483647
+  branch: 1
+  empowerLevel: 1
+  branchValue: 100

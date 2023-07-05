@@ -8,9 +8,9 @@ namespace script.overlay
     {
         public int maxSnowAmountByLevel;
         public int currentSnowAmount;
-        private Slider _slider;
-        private Player _player;
         public float speed = 20;
+        private Player _player;
+        private Slider _slider;
 
         private void Start()
         {
@@ -19,17 +19,17 @@ namespace script.overlay
             currentSnowAmount = _player.snowAmount;
         }
 
+        private void Update()
+        {
+            currentSnowAmount = _player.snowAmount;
+            _slider.value = Mathf.Lerp(_slider.value, currentSnowAmount, speed * Time.deltaTime);
+        }
+
 
         public void SetMaxSnowAmount(int snowAmount)
         {
             maxSnowAmountByLevel = snowAmount;
             _slider.maxValue = maxSnowAmountByLevel;
-        }
-
-        private void Update()
-        {
-            currentSnowAmount = _player.snowAmount;
-            _slider.value = Mathf.Lerp(_slider.value, currentSnowAmount, speed * Time.deltaTime);
         }
     }
 }

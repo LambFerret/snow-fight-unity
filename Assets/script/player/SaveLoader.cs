@@ -1,6 +1,8 @@
+using System;
+
 namespace script.player
 {
-    [System.Serializable]
+    [Serializable]
     public class SaveLoader
     {
         public Player player;
@@ -11,6 +13,7 @@ namespace script.player
         {
             return this;
         }
+
         // You could then have methods for saving and loading the save file:
         public void SaveGame()
         {

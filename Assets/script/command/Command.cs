@@ -1,12 +1,42 @@
 using System;
+using System.Collections.Generic;
+using map;
+using script.player;
+using script.soldier;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace script.command
 {
     [Serializable]
-    public class Command : IEffectBehavior
+    public abstract class Command : ScriptableObject
     {
+
+        public enum Rarity
+        {
+            Common,
+            Uncommon,
+            Rare,
+            Epic,
+            Legendary
+        }
+
+        public enum Target
+        {
+            Player,
+            Soldier,
+            UI,
+            Level,
+            Command
+        }
+
+        public enum Type
+        {
+            Operation,
+            Reward,
+            Betrayal
+        }
+
         public string id;
         public string commandName;
         public Type type;
@@ -17,18 +47,50 @@ namespace script.command
         public int affectToUp;
         public int affectToMiddle;
         public int affectToDown;
-        public bool isReusable;
         public int usedCount;
         public int targetCount;
 
-        public void Effect()
+        public void Effect(List<Soldier> soldiers, List<Command> commands, Level level)
         {
+            switch (target)
+            {
+                case Target.Player:
+                    Effect(Player.PlayerInstance);
+                    break;
+                case Target.Soldier:
+                    Effect(soldiers);
+                    break;
+                case Target.Command:
+                    Effect(commands);
+                    break;
+                case Target.Level:
+                    Effect(level);
+                    break;
+                case Target.UI:
 
+                    break;
+            }
+        }
+
+        public void Effect(List<Command> commands)
+        {
+        }
+
+        public void Effect(List<Soldier> soldiers)
+        {
+        }
+
+        public void Effect(Level level)
+        {
+        }
+
+        public void Effect(Player player)
+        {
         }
 
         public GameObject MakeCommandCard(GameObject prefab)
         {
-            GameObject card = prefab.transform.Find("Card").gameObject;
+            var card = prefab.transform.Find("Card").gameObject;
 
             var nameText = card.transform.Find("Paper/commandName").GetComponent<Text>();
             var effectDescriptionText = card.transform.Find("Paper/effectDescription").GetComponent<Text>();
@@ -42,30 +104,6 @@ namespace script.command
             typeText.text = type.ToString();
 
             return card;
-        }
-
-        public enum Target
-        {
-            Player,
-            Soldier,
-            UI,
-            Enemy
-        }
-
-        public enum Type
-        {
-            Operation,
-            Reward,
-            Betrayal,
-        }
-
-        public enum Rarity
-        {
-            Common,
-            Uncommon,
-            Rare,
-            Epic,
-            Legendary
         }
     }
 }

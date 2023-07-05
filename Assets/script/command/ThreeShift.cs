@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+using script.soldier;
 using UnityEngine;
 
 namespace script.command
 {
+    [CreateAssetMenu(fileName = "ThreeShift", menuName = "Scriptable Objects/command/Three Shift")]
     public class ThreeShift : Command
     {
         public ThreeShift()
@@ -16,14 +19,13 @@ namespace script.command
             affectToUp = 1;
             affectToMiddle = 1;
             affectToDown = 1;
-            isReusable = true;
+
             usedCount = 1;
             targetCount = 1;
         }
 
-        public new void Effect()
+        public new void Effect(List<Soldier> soldiers)
         {
-            Debug.Log("ThreeShift");
         }
     }
 }

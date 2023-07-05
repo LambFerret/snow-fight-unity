@@ -1,10 +1,14 @@
-using System;
+using System.Collections.Generic;
+using script.soldier;
+using UnityEngine;
 
 namespace script.command
 {
+    [CreateAssetMenu(fileName = "TricksOfTrade", menuName = "Scriptable Objects/command/Tricks Of Trade")]
     public class TricksOfTrade : Command
     {
-        public TricksOfTrade()        {
+        public TricksOfTrade()
+        {
             id = "TricksOfTrade";
             commandName = "Tricks Of Trade";
             type = Type.Operation;
@@ -15,12 +19,12 @@ namespace script.command
             affectToUp = 1;
             affectToMiddle = 1;
             affectToDown = 1;
-            isReusable = true;
+
             usedCount = 1;
             targetCount = 1;
         }
 
-        public new void Effect()
+        public new void Effect(List<Soldier> soldiers)
         {
         }
     }

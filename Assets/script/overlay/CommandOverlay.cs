@@ -3,15 +3,12 @@ using script.command;
 using script.player;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace script.overlay
 {
     public class CommandOverlay : MonoBehaviour
     {
         public GameObject prefab;
-        private Player _player;
-        private Dictionary<Command, GameObject> _commandToGameObjectMap;
 
         // 플레이어가 가진 진짜 덱
         [SerializeField] private List<Command> totalDeck;
@@ -24,15 +21,18 @@ namespace script.overlay
 
         // 플레이어가 손에 들고 있는 카드들
         [SerializeField] private List<Command> hand;
+        private Dictionary<Command, GameObject> _commandToGameObjectMap;
+        private Player _player;
 
         private void Start()
         {
             _commandToGameObjectMap = new Dictionary<Command, GameObject>();
             _player = Player.PlayerInstance;
-            foreach (var playerCommand in _player.commands)
-            {
-                totalDeck.Add(playerCommand);
-            }
+            totalDeck = _player.totalDeck;
+            usedCommandList = _player.usedCommandList;
+            removalFromGameCommandList = _player.removalFromGameCommandList;
+            hand = _player.hand;
+            foreach (var playerCommand in _player.commands) totalDeck.Add(playerCommand);
         }
 
         public void StartTurn()
@@ -47,7 +47,7 @@ namespace script.overlay
             var command = totalDeck[Random.Range(0, totalDeck.Count - 1)];
             var commandGameObject = command.MakeCommandCard(Instantiate(prefab));
             commandGameObject.transform.SetParent(group.transform, false);
-            Button button = commandGameObject.GetComponent<Button>();
+            var button = commandGameObject.GetComponent<Button>();
             button.onClick.AddListener(() => PlayCommandFromHand(command));
 
             hand.Add(command);
@@ -63,7 +63,7 @@ namespace script.overlay
 
         private void MakeHandFromDeck()
         {
-            for (int i = 0; i < _player.maxCommandInHand; i++)
+            for (var i = 0; i < _player.maxCommandInHand; i++)
             {
                 if (totalDeck.Count == 0) ResetDeck();
                 if (totalDeck.Count == 0) break;
@@ -76,7 +76,7 @@ namespace script.overlay
             hand.Remove(command);
             _commandToGameObjectMap[command].SetActive(false);
             Debug.Log(command.id);
-            command.Effect();
+            command.Effect(totalDeck);
 
             if (command.type == Command.Type.Reward)
             {
@@ -99,10 +99,7 @@ namespace script.overlay
 
         public void EndStage(bool isWin)
         {
-            if (!isWin)
-            {
-                totalDeck.AddRange(removalFromGameCommandList);
-            }
+            if (!isWin) totalDeck.AddRange(removalFromGameCommandList);
 
             removalFromGameCommandList.Clear();
         }

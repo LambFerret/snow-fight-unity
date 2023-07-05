@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ namespace script.component
 {
     public abstract class Subject : MonoBehaviour
     {
-        private readonly List<IObserver> _observers = new List<IObserver>();
+        private readonly List<IObserver> _observers = new();
 
         public void AddObserver(IObserver observer)
         {

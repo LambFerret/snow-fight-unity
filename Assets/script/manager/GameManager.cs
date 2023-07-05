@@ -1,5 +1,3 @@
-
-
 using System.Collections.Generic;
 using script.command;
 using script.component;
@@ -15,8 +13,8 @@ namespace script.manager
 
         public void Start()
         {
-            List<Soldier> soldiers = new List<Soldier>();
-            List<Command> commands = new List<Command>();
+            var soldiers = new List<Soldier>();
+            var commands = new List<Command>();
 
             soldiers.Add(itemLibrary.PopSoldier("Vanilla"));
             soldiers.Add(itemLibrary.PopSoldier("Choco"));

@@ -13,11 +13,22 @@ namespace map
 {
     public abstract class Level : MonoBehaviour
     {
-        private int _width;
-        private int _height;
-        [SerializeField] private TileData[,] _tileGrid;
-        private int[,] _maxAmount;
-        private int[,] _terrain;
+        public enum Region
+        {
+            Rural,
+            Urban,
+            Nation
+        }
+
+
+        public enum TalentTiming
+        {
+            VictimSelected,
+            Located,
+            WorkBefore,
+            WorkAfter
+        }
+
         public int maxSnowAmount;
         public int minSnowAmount;
         public int maxSoliderCapacity;
@@ -30,11 +41,13 @@ namespace map
         public SnowBarOverlay snowBarOverlay;
         public GameObject levelAsset;
         public GameObject textAsset;
+        private int _height;
+        private int[,] _maxAmount;
+        private int[,] _terrain;
+        [SerializeField] private TileData[,] _tileGrid;
+        private int _width;
 
         private GameObject _workingPlace;
-
-        protected abstract int[,] GetMaxAmountList();
-        protected abstract int[,] GetTerrainList();
 
         private void Start()
         {
@@ -46,11 +59,14 @@ namespace map
             snowBarOverlay.SetMaxSnowAmount(maxSnowAmount);
         }
 
+        protected abstract int[,] GetMaxAmountList();
+        protected abstract int[,] GetTerrainList();
+
         private void MakeMapData()
         {
             _tileGrid = new TileData[_width, _height];
-            int col = 0;
-            int row = 0;
+            var col = 0;
+            var row = 0;
             var bound = tilemap.cellBounds;
             for (var x = bound.xMin; x < bound.xMax; x++)
             {
@@ -96,25 +112,21 @@ namespace map
 
         public void LocateWorkingPlace()
         {
-            int cols = _tileGrid.GetLength(0);
-            int rows = _tileGrid.GetLength(1);
+            var cols = _tileGrid.GetLength(0);
+            var rows = _tileGrid.GetLength(1);
             var bound = tilemap.cellBounds;
-            int startX = bound.xMin;
-            int startY = bound.yMin;
+            var startX = bound.xMin;
+            var startY = bound.yMin;
             foreach (var s in soldierOverlay.soldiers)
             {
-                int i = s.rangeX > cols ? cols : s.rangeX;
-                int j = s.rangeY > rows ? rows : s.rangeY;
-                int topLeftCol = Random.Range(startX, startX + cols - i);
-                int topLeftRow = Random.Range(startY, startY + rows - j);
+                var i = s.rangeX > cols ? cols : s.rangeX;
+                var j = s.rangeY > rows ? rows : s.rangeY;
+                var topLeftCol = Random.Range(startX, startX + cols - i);
+                var topLeftRow = Random.Range(startY, startY + rows - j);
                 CreateImageOverlay(topLeftCol, topLeftRow, i, j, s);
-                for (int row = topLeftRow; row < topLeftRow + j; row++)
-                {
-                    for (int col = topLeftCol; col < topLeftCol + i; col++)
-                    {
-                        _tileGrid[row - startX, col - startY].Soldiers.Add(s);
-                    }
-                }
+                for (var row = topLeftRow; row < topLeftRow + j; row++)
+                for (var col = topLeftCol; col < topLeftCol + i; col++)
+                    _tileGrid[row - startX, col - startY].Soldiers.Add(s);
             }
 
             soldierOverlay.EffectTalent(TalentTiming.Located);
@@ -122,36 +134,24 @@ namespace map
 
         public void HappyWorking()
         {
-            Player player = Player.PlayerInstance;
+            var player = Player.PlayerInstance;
             soldierOverlay.EffectTalent(TalentTiming.WorkBefore);
-            for (int i = 0; i < _tileGrid.GetLength(0); i++)
-            {
-                for (int j = 0; j < _tileGrid.GetLength(1); j++)
+            for (var i = 0; i < _tileGrid.GetLength(0); i++)
+            for (var j = 0; j < _tileGrid.GetLength(1); j++)
+                foreach (var s in _tileGrid[i, j].Soldiers)
                 {
-                    foreach (var s in _tileGrid[i, j].Soldiers)
-                    {
-                        int currentAmount = _tileGrid[i, j].CurrentAmount;
-                        int maxAmount = _tileGrid[i, j].MaxAmount;
-                        if (currentAmount + s.speed > maxAmount)
-                        {
-                            _tileGrid[i, j].CurrentAmount = maxAmount;
-                        }
-                        else
-                        {
-                            _tileGrid[i, j].CurrentAmount += s.speed;
-                        }
+                    var currentAmount = _tileGrid[i, j].CurrentAmount;
+                    var maxAmount = _tileGrid[i, j].MaxAmount;
+                    if (currentAmount + s.speed > maxAmount)
+                        _tileGrid[i, j].CurrentAmount = maxAmount;
+                    else
+                        _tileGrid[i, j].CurrentAmount += s.speed;
 
-                        if (player.snowAmount + _tileGrid[i, j].CurrentAmount - currentAmount > maxSnowAmount)
-                        {
-                            player.snowAmount = maxSnowAmount;
-                        }
-                        else
-                        {
-                            player.snowAmount += _tileGrid[i, j].CurrentAmount - currentAmount;
-                        }
-                    }
+                    if (player.snowAmount + _tileGrid[i, j].CurrentAmount - currentAmount > maxSnowAmount)
+                        player.snowAmount = maxSnowAmount;
+                    else
+                        player.snowAmount += _tileGrid[i, j].CurrentAmount - currentAmount;
                 }
-            }
 
             LabelingTiles();
             SetSoldierAnimation(true);
@@ -162,9 +162,9 @@ namespace map
         private void CreateImageOverlay(int startX, int startY, int width, int height, Soldier soldier)
         {
             Debug.Log("xywh : " + startX + " " + startY + " " + width + " " + height);
-            Vector3 topLeftWorldPos = tilemap.CellToWorld(new Vector3Int(startX, startY, 0));
-            Vector3 bottomRightWorldPos = tilemap.CellToWorld(new Vector3Int(startX + width, startY + height, 0));
-            Vector3 centerPos = (topLeftWorldPos + bottomRightWorldPos) / 2;
+            var topLeftWorldPos = tilemap.CellToWorld(new Vector3Int(startX, startY, 0));
+            var bottomRightWorldPos = tilemap.CellToWorld(new Vector3Int(startX + width, startY + height, 0));
+            var centerPos = (topLeftWorldPos + bottomRightWorldPos) / 2;
             var imagePrefab = levelAsset.transform.Find("Cloud").gameObject;
             var soldierStandPrefab = soldierOverlay.prefab.transform.Find("Stand").gameObject;
 
@@ -185,54 +185,28 @@ namespace map
         public void SetSoldierAnimation(bool isWorking)
         {
             foreach (Transform soldier in _workingPlace.transform.Find("StandPlace").transform)
-            {
                 soldier.GetComponent<Animator>().SetBool("isWorking", isWorking);
-            }
         }
 
         public void ResetWorkingPlace()
         {
-            foreach (Transform child in _workingPlace.transform.Find("CloudPlace").transform)
-            {
-                Destroy(child.gameObject);
-            }
+            foreach (Transform child in _workingPlace.transform.Find("CloudPlace").transform) Destroy(child.gameObject);
 
-            foreach (Transform child in _workingPlace.transform.Find("StandPlace").transform)
-            {
-                Destroy(child.gameObject);
-            }
+            foreach (Transform child in _workingPlace.transform.Find("StandPlace").transform) Destroy(child.gameObject);
         }
 
         private void LabelingTiles()
         {
-            int i = 0;
+            var i = 0;
             foreach (Transform child in _workingPlace.transform.Find("TileLabelPlace").transform)
-            {
                 if (child.gameObject.name.Contains("Text"))
                 {
-                    int row = i % _width;
-                    int col = i / _width;
+                    var row = i % _width;
+                    var col = i / _width;
                     i++;
                     var info = _tileGrid[row, col].CurrentAmount + "/" + _tileGrid[row, col].MaxAmount;
                     child.GetComponent<Text>().text = info;
                 }
-            }
-        }
-
-
-        public enum TalentTiming
-        {
-            VictimSelected,
-            Located,
-            WorkBefore,
-            WorkAfter
-        }
-
-        public enum Region
-        {
-            Rural,
-            Urban,
-            Nation
         }
     }
 
@@ -259,7 +233,7 @@ namespace map
             Forest7,
             Forest8,
             Forest9,
-            Forest0,
+            Forest0
         }
     }
 }

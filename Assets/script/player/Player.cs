@@ -7,9 +7,18 @@ using UnityEngine;
 namespace script.player
 {
     [Serializable]
-    [CreateAssetMenu(fileName = "Player", menuName = "ScriptableObjects/Player", order = 1)]
+    [CreateAssetMenu(fileName = "Player", menuName = "Scriptable Objects/Player/player", order = 1)]
     public class Player : ScriptableObject
     {
+        public enum Affinity
+        {
+            Upper,
+            Middle,
+            Down
+        }
+
+        private static Player _instance;
+
         // public ItemLibrary library = GameManager.Instance.itemLibrary;
         // private List<Manual> manuals;
         // private List<Quest> quests;
@@ -27,8 +36,15 @@ namespace script.player
         public int upperAffinity;
         public int maxManualCapacity;
         public int maxCommandInHand;
-
-        private static Player _instance;
+        public List<Command> totalDeck;
+        public List<Command> usedCommandList;
+        public List<Command> removalFromGameCommandList;
+        public List<Command> hand;
+        // private List<Item> shopItems;
+        private Player()
+        {
+            SemiConstructor();
+        }
 
         public static Player PlayerInstance
         {
@@ -44,9 +60,9 @@ namespace script.player
             }
         }
 
-        // private List<Item> shopItems;
-        private Player()
+        private void SemiConstructor()
         {
+            snowAmount = 0;
             day = 0;
             money = 1000;
             maxCost = 15;
@@ -61,20 +77,12 @@ namespace script.player
             maxCommandInHand = 5;
         }
 
-        public void Init(List<Soldier> soldiers, List<Command> commands)
+        public void Init(List<Soldier> soldierList, List<Command> commandList)
         {
             Debug.Log("game manager inits the player");
-
-            this.soldiers = soldiers;
-            this.commands = commands;
-            Debug.Log("player has " + this.soldiers.Count + " soldiers");
-        }
-
-        public enum Affinity
-        {
-            Upper,
-            Middle,
-            Down
+            soldiers = soldierList;
+            commands = commandList;
+            SemiConstructor();
         }
     }
 }

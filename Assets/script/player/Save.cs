@@ -4,15 +4,15 @@ namespace script.player
 {
     public class Save
     {
-        public long Time;
+        public Dictionary<Player.Affinity, int> Affinity;
         public List<Item> AllItems;
         public int Day;
-        public int Money;
-        public Dictionary<Player.Affinity, int> Affinity;
+        public List<string> EventList;
+        public int MaxCommandInHand;
         public int MaxCost;
         public int MaxManualCapacity;
-        public int MaxCommandInHand;
-        public List<string> EventList;
+        public int Money;
         public List<Item> ShopList;
+        public long Time;
     }
 }

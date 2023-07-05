@@ -1,8 +1,10 @@
-using System;
+using System.Collections.Generic;
+using script.soldier;
 using UnityEngine;
 
 namespace script.command
 {
+    [CreateAssetMenu(fileName = "CupRamen", menuName = "Scriptable Objects/command/Cup Ramen")]
     public class CupRamen : Command
     {
         public CupRamen()
@@ -17,15 +19,12 @@ namespace script.command
             affectToUp = 1;
             affectToMiddle = 1;
             affectToDown = 1;
-            isReusable = true;
             usedCount = 1;
             targetCount = 1;
         }
 
-        public new void Effect()
+        public new void Effect(List<Soldier> soldiers)
         {
-            Debug.Log("CR");
-
         }
     }
 }

@@ -4291,8 +4291,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wholeSoldiers: []
-  soldiersLeft: []
-  wholeCommands: []
+  wholeCommands:
+  - {fileID: 11400000, guid: 2a95550af380c45febfe648ec79898e3, type: 2}
 --- !u!1 &1307370167
 GameObject:
   m_ObjectHideFlags: 0
@@ -5123,7 +5123,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -483.63, y: -161.17}
+  m_AnchoredPosition: {x: -483.63, y: -161.16998}
   m_SizeDelta: {x: -1072.6, y: -410}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1516412348

@@ -4,13 +4,20 @@ using script.component;
 using script.overlay;
 using script.Overlay;
 using script.player;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace script.manager
 {
     public class PhaseSystem : Subject
     {
+        public enum PhaseState
+        {
+            Pre,
+            Ready,
+            Action,
+            Post
+        }
+
         public PhaseState currentPhase;
         public int currentPhaseNumber;
         public Text phaseText;
@@ -34,7 +41,7 @@ namespace script.manager
 
         public void NextPhase()
         {
-            int maxPhaseNumber = (int)currentLevel.region + 2;
+            var maxPhaseNumber = (int)currentLevel.region + 2;
 
             switch (currentPhase)
             {
@@ -65,14 +72,11 @@ namespace script.manager
                         phaseText.text = currentPhaseNumber.ToString();
                         currentPhase = PhaseState.Post;
                         if (Player.PlayerInstance.snowAmount < currentLevel.minSnowAmount)
-                        {
                             currentLevel.defeatPanel.SetActive(true);
-                        }
                         else
-                        {
                             currentLevel.victoryPanel.SetActive(true);
-                        }
                     }
+
                     break;
 
                 default:
@@ -87,14 +91,6 @@ namespace script.manager
             currentLevel.LocateWorkingPlace();
             // 카드 드로우
             _commandOverlay.StartTurn();
-        }
-
-        public enum PhaseState
-        {
-            Pre,
-            Ready,
-            Action,
-            Post
         }
     }
 }
