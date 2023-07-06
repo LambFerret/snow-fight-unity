@@ -9,30 +9,26 @@ namespace script.overlay
     public class CommandOverlay : MonoBehaviour
     {
         public GameObject prefab;
-
-        // 플레이어가 가진 진짜 덱
-        [SerializeField] private List<Command> totalDeck;
-
-        // 덱이 전부 소모되기전 사용된 카드들
-        [SerializeField] private List<Command> usedCommandList;
-
-        // 플레이어가 가진 덱에서 소멸된 카드들
-        [SerializeField] private List<Command> removalFromGameCommandList;
-
-        // 플레이어가 손에 들고 있는 카드들
-        [SerializeField] private List<Command> hand;
-        private Dictionary<Command, GameObject> _commandToGameObjectMap;
+        private List<CommandObjectPair> _commandToGameObjectPairs;
+        private List<Command> _hand;
         private Player _player;
+        private List<Command> _removalFromGameCommandList;
+        private List<Command> _totalDeck;
+        private List<Command> _usedCommandList;
 
         private void Start()
         {
-            _commandToGameObjectMap = new Dictionary<Command, GameObject>();
+            _commandToGameObjectPairs = new List<CommandObjectPair>();
             _player = Player.PlayerInstance;
-            totalDeck = _player.totalDeck;
-            usedCommandList = _player.usedCommandList;
-            removalFromGameCommandList = _player.removalFromGameCommandList;
-            hand = _player.hand;
-            foreach (var playerCommand in _player.commands) totalDeck.Add(playerCommand);
+        }
+
+        public void StartLevel()
+        {
+            _totalDeck = _player.totalDeck;
+            _usedCommandList = _player.usedCommandList;
+            _removalFromGameCommandList = _player.removalFromGameCommandList;
+            _hand = _player.hand;
+            foreach (var playerCommand in _player.commands) _player.totalDeck.Add(playerCommand);
         }
 
         public void StartTurn()
@@ -44,64 +40,85 @@ namespace script.overlay
         {
             var group = gameObject.GetComponent<HorizontalLayoutGroup>();
 
-            var command = totalDeck[Random.Range(0, totalDeck.Count - 1)];
+            var command = _totalDeck[Random.Range(0, _totalDeck.Count - 1)];
             var commandGameObject = command.MakeCommandCard(Instantiate(prefab));
             commandGameObject.transform.SetParent(group.transform, false);
             var button = commandGameObject.GetComponent<Button>();
             button.onClick.AddListener(() => PlayCommandFromHand(command));
 
-            hand.Add(command);
-            totalDeck.Remove(command);
-            _commandToGameObjectMap.Add(command, commandGameObject);
+            _hand.Add(command);
+            _totalDeck.Remove(command);
+            _commandToGameObjectPairs.Add(new CommandObjectPair(command, commandGameObject));
         }
 
         private void ResetDeck()
         {
-            totalDeck.AddRange(usedCommandList);
-            usedCommandList.Clear();
+            _totalDeck.AddRange(_usedCommandList);
+            _usedCommandList.Clear();
         }
 
         private void MakeHandFromDeck()
         {
             for (var i = 0; i < _player.maxCommandInHand; i++)
             {
-                if (totalDeck.Count == 0) ResetDeck();
-                if (totalDeck.Count == 0) break;
+                if (_totalDeck.Count == 0) ResetDeck();
+                if (_totalDeck.Count == 0) break;
                 DrawFromDeck();
             }
         }
 
         private void PlayCommandFromHand(Command command)
         {
-            hand.Remove(command);
-            _commandToGameObjectMap[command].SetActive(false);
+            _hand.Remove(command);
+            GetGameObjectForCommand(command).SetActive(false);
             Debug.Log(command.id);
-            command.Effect(totalDeck);
+            command.Effect(_totalDeck);
 
             if (command.type == Command.Type.Reward)
             {
-                removalFromGameCommandList.Add(command);
-                totalDeck.Remove(command);
+                _removalFromGameCommandList.Add(command);
+                _totalDeck.Remove(command);
             }
             else
             {
-                usedCommandList.Add(command);
+                _usedCommandList.Add(command);
             }
         }
 
         public void EndTurn()
         {
-            usedCommandList.AddRange(hand);
+            _usedCommandList.AddRange(_hand);
             foreach (Transform child in transform) Destroy(child.gameObject);
-            hand.Clear();
-            _commandToGameObjectMap.Clear();
+            _hand.Clear();
+            _commandToGameObjectPairs.Clear();
         }
 
         public void EndStage(bool isWin)
         {
-            if (!isWin) totalDeck.AddRange(removalFromGameCommandList);
+            if (!isWin) _totalDeck.AddRange(_removalFromGameCommandList);
 
-            removalFromGameCommandList.Clear();
+            _removalFromGameCommandList.Clear();
+        }
+
+        private GameObject GetGameObjectForCommand(Command command)
+        {
+            foreach (var pair in _commandToGameObjectPairs)
+                if (pair.command == command)
+                    return pair.gameObject;
+
+            return null;
+        }
+
+        private class CommandObjectPair
+        {
+            public readonly Command command;
+            public readonly GameObject gameObject;
+
+            public CommandObjectPair(Command command, GameObject gameObject)
+            {
+                this.command = command;
+                this.gameObject = gameObject;
+            }
         }
     }
 }

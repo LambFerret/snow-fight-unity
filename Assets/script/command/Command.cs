@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using map;
+using script.map;
 using script.player;
 using script.soldier;
 using UnityEngine;
@@ -11,7 +11,6 @@ namespace script.command
     [Serializable]
     public abstract class Command : ScriptableObject
     {
-
         public enum Rarity
         {
             Common,

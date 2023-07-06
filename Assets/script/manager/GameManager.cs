@@ -23,9 +23,6 @@ namespace script.manager
             commands.Add(itemLibrary.GetCommand("CupNoodle"));
             commands.Add(itemLibrary.GetCommand("CupNoodle"));
             commands.Add(itemLibrary.GetCommand("CupNoodle"));
-            commands.Add(itemLibrary.GetCommand("CupNoodle"));
-            commands.Add(itemLibrary.GetCommand("CupNoodle"));
-            commands.Add(itemLibrary.GetCommand("CupNoodle"));
             commands.Add(itemLibrary.GetCommand("CupNoodleXL"));
             commands.Add(itemLibrary.GetCommand("CupRamen"));
 

@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace script.command
 {
-    [CreateAssetMenu(fileName = "TraffickingInClassifiedInformation", menuName = "Scriptable Objects/command/Trafficking In Classified Information")]
+    [CreateAssetMenu(fileName = "TraffickingInClassifiedInformation",
+        menuName = "Scriptable Objects/command/Trafficking In Classified Information")]
     public class TraffickingInClassifiedInformation : Command
     {
         public TraffickingInClassifiedInformation()

@@ -1,30 +1,35 @@
+using System;
 using System.Collections.Generic;
-using map;
+using script.component;
+using script.map;
 using script.player;
 using script.soldier;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace script.Overlay
 {
     public class SoldierOverlay : MonoBehaviour
     {
-        public List<Soldier> soldiers;
-
         public GameObject prefab;
-        // private GameObject _stand;
+        private HorizontalLayoutGroup _horizontalLayoutGroup;
+        private List<Soldier> _soldiers;
 
         public void DispatchSoldiers(int maxSoliderCapacity)
         {
             var player = Player.PlayerInstance;
+            _soldiers = player.soldiersInThisLevel;
+            _soldiers.Clear();
+            _horizontalLayoutGroup = gameObject.GetComponent<HorizontalLayoutGroup>();
             if (player.soldiers.Count <= maxSoliderCapacity)
-                soldiers.AddRange(player.soldiers);
+                _soldiers.AddRange(player.soldiers);
             else
                 for (var i = 0; i < maxSoliderCapacity; i++)
                 {
                     var randomSoldierFromPlayer = Random.Range(0, player.soldiers.Count);
                     var randomSoldier = player.soldiers[randomSoldierFromPlayer];
-                    soldiers.Add(randomSoldier);
+                    _soldiers.Add(randomSoldier);
                 }
 
             MakeSoldierOverlay();
@@ -34,18 +39,18 @@ namespace script.Overlay
         {
             var stand = prefab.transform.Find("Stand").gameObject;
 
-            var group = gameObject.GetComponent<HorizontalLayoutGroup>();
-            foreach (var soldier in soldiers)
+            foreach (var soldier in _soldiers)
             {
                 var newSlot = soldier.MakeSoldierStanding(Instantiate(stand));
-
-                newSlot.transform.SetParent(group.transform, false);
+                var hoverTooltip = newSlot.GetComponent<HoverTooltip>();
+                hoverTooltip.soldier = soldier;
+                newSlot.transform.SetParent(_horizontalLayoutGroup.transform, false);
             }
         }
 
         public void EffectTalent(Level.TalentTiming timing)
         {
-            foreach (var s in soldiers) s.Talent();
+            foreach (var s in _soldiers) s.Talent();
         }
     }
 }

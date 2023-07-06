@@ -14,7 +14,7 @@ namespace script.soldier
             runAwayProbability = 30;
             rank = Rank.Private;
             branch = Branch.Administrative;
-                    }
+        }
 
         public override void Talent()
         {

@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace map
+namespace script.map
 {
     public abstract class Level : MonoBehaviour
     {
@@ -29,6 +29,7 @@ namespace map
             WorkAfter
         }
 
+        public Player player;
         public int maxSnowAmount;
         public int minSnowAmount;
         public int maxSoliderCapacity;
@@ -51,6 +52,7 @@ namespace map
 
         private void Start()
         {
+            player = Player.PlayerInstance;
             _workingPlace = GameObject.Find("CanvasOverlay/Place");
             _maxAmount = GetMaxAmountList();
             _terrain = GetTerrainList();
@@ -117,7 +119,7 @@ namespace map
             var bound = tilemap.cellBounds;
             var startX = bound.xMin;
             var startY = bound.yMin;
-            foreach (var s in soldierOverlay.soldiers)
+            foreach (var s in player.soldiersInThisLevel)
             {
                 var i = s.rangeX > cols ? cols : s.rangeX;
                 var j = s.rangeY > rows ? rows : s.rangeY;
@@ -134,7 +136,6 @@ namespace map
 
         public void HappyWorking()
         {
-            var player = Player.PlayerInstance;
             soldierOverlay.EffectTalent(TalentTiming.WorkBefore);
             for (var i = 0; i < _tileGrid.GetLength(0); i++)
             for (var j = 0; j < _tileGrid.GetLength(1); j++)

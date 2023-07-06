@@ -8,7 +8,6 @@ namespace script.soldier
     [Serializable]
     public abstract class Soldier : ScriptableObject
     {
-
         public enum Branch
         {
             Sniper,
@@ -62,6 +61,7 @@ namespace script.soldier
         public int branchValue = 100;
 
         public abstract void Talent();
+
         public GameObject MakeSoldierCard(GameObject card)
         {
             var nameText = card.transform.Find("Name").GetComponent<Text>();

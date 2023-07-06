@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace script.command
 {
-    [CreateAssetMenu(fileName = "RewardLeaveForNoSmoke", menuName = "Scriptable Objects/command/Reward Leave For No Smoke")]
+    [CreateAssetMenu(fileName = "RewardLeaveForNoSmoke",
+        menuName = "Scriptable Objects/command/Reward Leave For No Smoke")]
     public class RewardLeaveForNoSmoke : Command
     {
-
         public RewardLeaveForNoSmoke()
         {
             id = "CupNoodle";

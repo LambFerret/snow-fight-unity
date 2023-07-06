@@ -1,4 +1,4 @@
-namespace map
+namespace script.map
 {
     public class LevelR1 : Level
     {
@@ -7,7 +7,7 @@ namespace map
             region = Region.Rural;
             maxSnowAmount = 500;
             minSnowAmount = 250;
-            maxSoliderCapacity = 5;
+            maxSoliderCapacity = 2;
         }
 
         protected override int[,] GetMaxAmountList()

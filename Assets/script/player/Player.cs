@@ -36,14 +36,33 @@ namespace script.player
         public int upperAffinity;
         public int maxManualCapacity;
         public int maxCommandInHand;
+        public List<Soldier> soldiersInThisLevel;
         public List<Command> totalDeck;
         public List<Command> usedCommandList;
         public List<Command> removalFromGameCommandList;
         public List<Command> hand;
+
         // private List<Item> shopItems;
         private Player()
         {
-            SemiConstructor();
+            snowAmount = 0;
+            day = 0;
+            money = 1000;
+            maxCost = 15;
+            currentCost = maxCost;
+            snowAmount = 0;
+            difficulty = 0;
+            clearedMainQuestNumber = 0;
+            downAffinity = 10;
+            middleAffinity = 50;
+            upperAffinity = 10;
+            maxManualCapacity = 3;
+            maxCommandInHand = 5;
+            soldiersInThisLevel = new List<Soldier>();
+            totalDeck = new List<Command>();
+            usedCommandList = new List<Command>();
+            removalFromGameCommandList = new List<Command>();
+            hand = new List<Command>();
         }
 
         public static Player PlayerInstance
@@ -60,29 +79,20 @@ namespace script.player
             }
         }
 
-        private void SemiConstructor()
-        {
-            snowAmount = 0;
-            day = 0;
-            money = 1000;
-            maxCost = 15;
-            currentCost = maxCost;
-            snowAmount = 0;
-            difficulty = 0;
-            clearedMainQuestNumber = 0;
-            downAffinity = 10;
-            middleAffinity = 50;
-            upperAffinity = 10;
-            maxManualCapacity = 3;
-            maxCommandInHand = 5;
-        }
-
         public void Init(List<Soldier> soldierList, List<Command> commandList)
         {
-            Debug.Log("game manager inits the player");
             soldiers = soldierList;
             commands = commandList;
-            SemiConstructor();
+        }
+
+        public void InitToPhase()
+        {
+            snowAmount = 0;
+            soldiersInThisLevel.Clear();
+            totalDeck.Clear();
+            usedCommandList.Clear();
+            removalFromGameCommandList.Clear();
+            hand.Clear();
         }
     }
 }

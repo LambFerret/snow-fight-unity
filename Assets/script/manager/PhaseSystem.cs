@@ -1,6 +1,6 @@
 using System;
-using map;
 using script.component;
+using script.map;
 using script.overlay;
 using script.Overlay;
 using script.player;
@@ -24,6 +24,7 @@ namespace script.manager
         public Level currentLevel;
         private CommandOverlay _commandOverlay;
         private SoldierOverlay _soldierOverlay;
+        private Player _player;
 
         private void Start()
         {
@@ -31,7 +32,10 @@ namespace script.manager
             _soldierOverlay = currentLevel.soldierOverlay;
             currentPhase = PhaseState.Pre;
             currentPhaseNumber = 1;
+            _player = Player.PlayerInstance;
+            _player.InitToPhase();
             _soldierOverlay.DispatchSoldiers(currentLevel.maxSoliderCapacity);
+            _commandOverlay.StartLevel();
         }
 
         private void Update()
