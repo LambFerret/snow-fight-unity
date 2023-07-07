@@ -51,6 +51,22 @@ namespace script.overlay
             _commandToGameObjectPairs.Add(new CommandObjectPair(command, commandGameObject));
         }
 
+        private void ResetHand()
+        {
+            Debug.Log("hand reset called");
+            var group = gameObject.GetComponent<HorizontalLayoutGroup>();
+            foreach (Transform child in group.transform) Destroy(child.gameObject);
+            _commandToGameObjectPairs.Clear();
+            foreach (var command in _hand)
+            {
+                var commandGameObject = command.MakeCommandCard(Instantiate(prefab));
+                commandGameObject.transform.SetParent(group.transform, false);
+                var button = commandGameObject.GetComponent<Button>();
+                button.onClick.AddListener(() => PlayCommandFromHand(command));
+                _commandToGameObjectPairs.Add(new CommandObjectPair(command, commandGameObject));
+            }
+        }
+
         private void ResetDeck()
         {
             _totalDeck.AddRange(_usedCommandList);
@@ -70,10 +86,7 @@ namespace script.overlay
         private void PlayCommandFromHand(Command command)
         {
             _hand.Remove(command);
-            GetGameObjectForCommand(command).SetActive(false);
             Debug.Log(command.id);
-            command.Effect(_totalDeck);
-
             if (command.type == Command.Type.Reward)
             {
                 _removalFromGameCommandList.Add(command);
@@ -83,6 +96,11 @@ namespace script.overlay
             {
                 _usedCommandList.Add(command);
             }
+
+            command.Effect();
+            Destroy(GetGameObjectForCommand(command));
+
+            if (_commandToGameObjectPairs.Count != _hand.Count) ResetHand();
         }
 
         public void EndTurn()

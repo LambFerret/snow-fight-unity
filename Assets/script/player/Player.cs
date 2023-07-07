@@ -79,12 +79,6 @@ namespace script.player
             }
         }
 
-        public void Init(List<Soldier> soldierList, List<Command> commandList)
-        {
-            soldiers = soldierList;
-            commands = commandList;
-        }
-
         public void InitToPhase()
         {
             snowAmount = 0;

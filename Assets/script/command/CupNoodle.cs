@@ -7,6 +7,7 @@ namespace script.command
     [CreateAssetMenu(fileName = "CupNoodle", menuName = "Scriptable Objects/command/Cup Noodle")]
     public class CupNoodle : Command
     {
+        public int cupNoodleSpeedValue = 3;
         public CupNoodle()
         {
             id = "CupNoodle";
@@ -23,8 +24,18 @@ namespace script.command
             targetCount = 1;
         }
 
-        public new void Effect(List<Soldier> soldiers)
+        public override void Effect(List<Command> commands)
         {
+        }
+
+
+
+        public override void Effect(List<Soldier> soldiers)
+        {
+            foreach (var s in soldiers)
+            {
+                s.speed += cupNoodleSpeedValue;
+            }
         }
     }
 }

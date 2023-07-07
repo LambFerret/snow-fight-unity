@@ -19,12 +19,15 @@ namespace script.command
             affectToUp = 1;
             affectToMiddle = 1;
             affectToDown = 1;
-
             usedCount = 1;
             targetCount = 1;
         }
 
-        public new void Effect(List<Soldier> soldiers)
+        public override void Effect(List<Command> commands)
+        {
+        }
+
+        public override void Effect(List<Soldier> soldiers)
         {
         }
     }

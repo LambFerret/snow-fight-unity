@@ -23,8 +23,15 @@ namespace script.command
             targetCount = 1;
         }
 
-        public new void Effect(List<Soldier> soldiers)
+        public override void Effect(List<Command> commands)
         {
+        }
+
+
+
+        public override void Effect(List<Soldier> soldiers)
+        {
+            Debug.Log("tell me");
             foreach (var soldier in soldiers)
             {
                 soldier.empowerLevel = Soldier.EmpowerLevel.Empowered;

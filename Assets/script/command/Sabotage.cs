@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using script.player;
+using script.soldier;
 using UnityEngine;
 
 namespace script.command
@@ -12,7 +14,7 @@ namespace script.command
             commandName = "Sabotage";
             type = Type.Betrayal;
             cost = 3;
-            target = Target.Soldier;
+            target = Target.Player;
             rarity = Rarity.Common;
             price = 300;
             affectToUp = 1;
@@ -22,8 +24,13 @@ namespace script.command
             targetCount = 1;
         }
 
-        public new void Effect(Player p)
+        public override void Effect(List<Soldier> soldiers)
         {
+        }
+
+        public override void Effect(List<Command> commands)
+        {
+            Player p = Player.PlayerInstance;
             var t = p.currentCost;
             p.currentCost = 0;
             p.snowAmount += t * 100;

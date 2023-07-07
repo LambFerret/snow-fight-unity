@@ -22,11 +22,15 @@ namespace script.command
 
         public enum Target
         {
-            Player,
+            SoldierAll,
             Soldier,
+            SoldierSelected,
+            CommandDeck,
+            CommandThisTurn,
+            CommandSelected,
+            Player,
             UI,
             Level,
-            Command
         }
 
         public enum Type
@@ -49,43 +53,48 @@ namespace script.command
         public int usedCount;
         public int targetCount;
 
-        public void Effect(List<Soldier> soldiers, List<Command> commands, Level level)
+        protected int initialCost;
+        protected int initialAffectToUp;
+        protected int initialAffectToMiddle;
+        protected int initialAffectToDown;
+
+        public void Effect()
         {
+            Player player = Player.PlayerInstance;
             switch (target)
             {
-                case Target.Player:
-                    Effect(Player.PlayerInstance);
-                    break;
                 case Target.Soldier:
-                    Effect(soldiers);
+                    Effect(player.soldiersInThisLevel);
                     break;
-                case Target.Command:
-                    Effect(commands);
+                case Target.SoldierSelected:
+                    Debug.Log("selected player effect TODO");
                     break;
-                case Target.Level:
-                    Effect(level);
+                case Target.SoldierAll:
+                    Effect(player.soldiers);
+                    break;
+                case Target.CommandSelected:
+                    // Effect(player.);
+                    break;
+                case Target.CommandDeck:
+                    Effect(player.commands);
+                    break;
+                case Target.CommandThisTurn:
+                    Effect(player.hand);
+                    break;
+                case Target.Player:
+                    Effect(new List<Command>());
                     break;
                 case Target.UI:
-
+                    // Effect(player.UI);
+                    break;
+                case Target.Level:
+                    // Effect();
                     break;
             }
         }
 
-        public void Effect(List<Command> commands)
-        {
-        }
-
-        public void Effect(List<Soldier> soldiers)
-        {
-        }
-
-        public void Effect(Level level)
-        {
-        }
-
-        public void Effect(Player player)
-        {
-        }
+        public abstract void Effect(List<Command> commands);
+        public abstract void Effect(List<Soldier> soldiers);
 
         public GameObject MakeCommandCard(GameObject prefab)
         {
