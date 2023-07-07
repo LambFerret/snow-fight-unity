@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using script.map;
 using script.player;
 using script.soldier;
 using UnityEngine;
@@ -30,7 +29,7 @@ namespace script.command
             CommandSelected,
             Player,
             UI,
-            Level,
+            Level
         }
 
         public enum Type
@@ -52,15 +51,43 @@ namespace script.command
         public int affectToDown;
         public int usedCount;
         public int targetCount;
+        public int affectMultiplier;
 
         protected int initialCost;
-        protected int initialAffectToUp;
-        protected int initialAffectToMiddle;
-        protected int initialAffectToDown;
+        protected int initialMultiplier;
+
+        protected Command(
+            string id,
+            Type type,
+            int cost,
+            Target target,
+            Rarity rarity,
+            int price,
+            int affectToUp,
+            int affectToMiddle,
+            int affectToDown,
+            int usedCount,
+            int targetCount
+        )
+        {
+            this.id = id;
+            commandName = id;
+            this.type = type;
+            this.cost = cost;
+            this.target = target;
+            this.rarity = rarity;
+            this.price = price;
+            this.affectToUp = affectToUp;
+            this.affectToMiddle = affectToMiddle;
+            this.affectToDown = affectToDown;
+            this.usedCount = usedCount;
+            this.targetCount = targetCount;
+            initialMultiplier = 1;
+        }
 
         public void Effect()
         {
-            Player player = Player.PlayerInstance;
+            var player = Player.PlayerInstance;
             switch (target)
             {
                 case Target.Soldier:

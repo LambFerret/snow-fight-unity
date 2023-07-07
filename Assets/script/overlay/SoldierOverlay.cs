@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using script.component;
 using script.map;
@@ -6,7 +5,6 @@ using script.player;
 using script.soldier;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace script.Overlay
 {

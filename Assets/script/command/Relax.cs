@@ -7,26 +7,25 @@ namespace script.command
     [CreateAssetMenu(fileName = "Relax", menuName = "Scriptable Objects/command/Relax")]
     public class Relax : Command
     {
-        public Relax()
+        public Relax() : base(
+            "AvoidSurveillance",
+            Type.Operation,
+            3,
+            Target.Soldier,
+            Rarity.Common,
+            300,
+            1,
+            1,
+            1,
+            1,
+            1
+        )
         {
-            id = "Relax";
-            commandName = "Relax";
-            type = Type.Reward;
-            cost = 3;
-            target = Target.Soldier;
-            rarity = Rarity.Common;
-            price = 300;
-            affectToUp = 1;
-            affectToMiddle = 1;
-            affectToDown = 1;
-            usedCount = 1;
-            targetCount = 1;
         }
 
         public override void Effect(List<Command> commands)
         {
         }
-
 
 
         public override void Effect(List<Soldier> soldiers)

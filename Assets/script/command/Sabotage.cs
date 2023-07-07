@@ -8,20 +8,20 @@ namespace script.command
     [CreateAssetMenu(fileName = "Sabotage", menuName = "Scriptable Objects/command/Sabotage")]
     public class Sabotage : Command
     {
-        public Sabotage()
+        public Sabotage() : base(
+            "AvoidSurveillance",
+            Type.Operation,
+            3,
+            Target.Soldier,
+            Rarity.Common,
+            300,
+            1,
+            1,
+            1,
+            1,
+            1
+        )
         {
-            id = "Sabotage";
-            commandName = "Sabotage";
-            type = Type.Betrayal;
-            cost = 3;
-            target = Target.Player;
-            rarity = Rarity.Common;
-            price = 300;
-            affectToUp = 1;
-            affectToMiddle = 1;
-            affectToDown = 1;
-            usedCount = 1;
-            targetCount = 1;
         }
 
         public override void Effect(List<Soldier> soldiers)
@@ -30,7 +30,7 @@ namespace script.command
 
         public override void Effect(List<Command> commands)
         {
-            Player p = Player.PlayerInstance;
+            var p = Player.PlayerInstance;
             var t = p.currentCost;
             p.currentCost = 0;
             p.snowAmount += t * 100;

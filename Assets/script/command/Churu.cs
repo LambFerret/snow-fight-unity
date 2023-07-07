@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using script.manager;
 using script.player;
 using script.soldier;
 using UnityEngine;
@@ -10,20 +9,20 @@ namespace script.command
     [CreateAssetMenu(fileName = "Churu", menuName = "Scriptable Objects/command/Churu")]
     public class Churu : Command
     {
-        public Churu()
+        public Churu() : base(
+            "AvoidSurveillance",
+            Type.Operation,
+            3,
+            Target.Soldier,
+            Rarity.Common,
+            300,
+            1,
+            1,
+            1,
+            1,
+            1
+        )
         {
-            id = "Churu";
-            commandName = "Churu";
-            type = Type.Operation;
-            cost = 3;
-            target = Target.Soldier;
-            rarity = Rarity.Common;
-            price = 300;
-            affectToUp = 1;
-            affectToMiddle = 1;
-            affectToDown = 1;
-            usedCount = 1;
-            targetCount = 1;
         }
 
         public override void Effect(List<Command> commands)
@@ -58,12 +57,10 @@ namespace script.command
         private static int DeleteDuplicated()
         {
             var player = Player.PlayerInstance;
-            List<List<Command>> commandList = new List<List<Command>>()
-                { player.hand, player.totalDeck, player.usedCommandList };
+            var commandList = new List<List<Command>> { player.hand, player.totalDeck, player.usedCommandList };
             var count = 0;
 
-            foreach (List<Command> list in commandList)
-            {
+            foreach (var list in commandList)
                 for (var i = list.Count - 1; i >= 0; i--)
                     if (list[i] is Churu)
                     {
@@ -71,7 +68,6 @@ namespace script.command
                         player.removalFromGameCommandList.Add(list[i]);
                         list.RemoveAt(i);
                     }
-            }
 
             return count;
         }

@@ -7,26 +7,25 @@ namespace script.command
     [CreateAssetMenu(fileName = "AvoidSurveillance", menuName = "Scriptable Objects/command/Avoid Surveillance")]
     public class AvoidSurveillance : Command
     {
-        public AvoidSurveillance()
+        public AvoidSurveillance() : base(
+            "AvoidSurveillance",
+            Type.Operation,
+            3,
+            Target.Soldier,
+            Rarity.Common,
+            300,
+            1,
+            1,
+            1,
+            1,
+            1
+        )
         {
-            id = "AvoidSurveillance";
-            commandName = "Avoid Surveillance";
-            type = Type.Operation;
-            cost = 3;
-            target = Target.Soldier;
-            rarity = Rarity.Common;
-            price = 300;
-            affectToUp = 1;
-            affectToMiddle = 1;
-            affectToDown = 1;
-            usedCount = 1;
-            targetCount = 1;
         }
 
         public override void Effect(List<Command> commands)
         {
         }
-
 
 
         public override void Effect(List<Soldier> soldiers)

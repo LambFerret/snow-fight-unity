@@ -7,26 +7,25 @@ namespace script.command
     [CreateAssetMenu(fileName = "Camouflage", menuName = "Scriptable Objects/command/Camouflage")]
     public class Camouflage : Command
     {
-        public Camouflage()
+        public Camouflage() : base(
+            "AvoidSurveillance",
+            Type.Operation,
+            3,
+            Target.Soldier,
+            Rarity.Common,
+            300,
+            1,
+            1,
+            1,
+            1,
+            1
+        )
         {
-            id = "CupNoodle";
-            commandName = "Cup Noodle";
-            type = Type.Operation;
-            cost = 3;
-            target = Target.Soldier;
-            rarity = Rarity.Common;
-            price = 300;
-            affectToUp = 1;
-            affectToMiddle = 1;
-            affectToDown = 1;
-            usedCount = 1;
-            targetCount = 1;
         }
 
         public override void Effect(List<Command> commands)
         {
         }
-
 
 
         public override void Effect(List<Soldier> soldiers)

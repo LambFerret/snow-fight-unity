@@ -23,8 +23,8 @@ namespace script.manager
         public Text phaseText;
         public Level currentLevel;
         private CommandOverlay _commandOverlay;
-        private SoldierOverlay _soldierOverlay;
         private Player _player;
+        private SoldierOverlay _soldierOverlay;
 
         private void Start()
         {

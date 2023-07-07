@@ -54,11 +54,45 @@ namespace script.soldier
         public int rangeY;
         public int speed;
         public int runAwayProbability;
+        public EmpowerLevel empowerLevel;
         public List<Terrain> preferenceTerrain;
-        public Rank rank = Rank.Private;
-        public Branch branch = Branch.Administrative;
-        public EmpowerLevel empowerLevel = EmpowerLevel.Neutral;
-        public int branchValue = 100;
+        public Rank rank;
+        public Branch branch;
+        public int branchValue;
+        protected EmpowerLevel initEmpowerLevel;
+        protected int initRangeX;
+        protected int initRangeY;
+        protected int initRunAwayProbability;
+        protected int initSpeed;
+
+        protected Soldier(
+            string id,
+            int rangeX,
+            int rangeY,
+            int speed,
+            int runAwayProbability,
+            List<Terrain> preferenceTerrain,
+            Rank rank,
+            Branch branch
+        )
+        {
+            this.id = id;
+            soldierName = id;
+            this.rangeX = rangeX;
+            this.rangeY = rangeY;
+            this.speed = speed;
+            this.runAwayProbability = runAwayProbability;
+            this.preferenceTerrain = preferenceTerrain;
+            this.rank = rank;
+            this.branch = branch;
+            empowerLevel = EmpowerLevel.Neutral;
+            branchValue = 100;
+            initRangeX = rangeX;
+            initRangeY = rangeY;
+            initSpeed = speed;
+            initRunAwayProbability = runAwayProbability;
+            initEmpowerLevel = empowerLevel;
+        }
 
         public abstract void Talent();
 
@@ -72,7 +106,7 @@ namespace script.soldier
             // var portraitText = card.transform.Find("Portrait").GetComponent<Image>();
             var branchText = card.transform.Find("Info/Branch").GetComponent<Text>();
 
-            nameText.text = id;
+            nameText.text = soldierName;
             xText.text = rangeX.ToString();
             yText.text = rangeY.ToString();
             sText.text = speed.ToString();
@@ -89,6 +123,15 @@ namespace script.soldier
             // var standAnimation =
 
             return stand;
+        }
+
+        public void ResetStat()
+        {
+            rangeX = initRangeX;
+            rangeY = initRangeY;
+            speed = initSpeed;
+            runAwayProbability = initRunAwayProbability;
+            empowerLevel = initEmpowerLevel;
         }
     }
 }

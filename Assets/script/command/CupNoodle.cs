@@ -8,20 +8,21 @@ namespace script.command
     public class CupNoodle : Command
     {
         public int cupNoodleSpeedValue = 3;
-        public CupNoodle()
+
+        public CupNoodle() : base(
+            "AvoidSurveillance",
+            Type.Operation,
+            3,
+            Target.Soldier,
+            Rarity.Common,
+            300,
+            1,
+            1,
+            1,
+            1,
+            1
+        )
         {
-            id = "CupNoodle";
-            commandName = "Cup Noodle";
-            type = Type.Operation;
-            cost = 3;
-            target = Target.Soldier;
-            rarity = Rarity.Common;
-            price = 300;
-            affectToUp = 1;
-            affectToMiddle = 1;
-            affectToDown = 1;
-            usedCount = 1;
-            targetCount = 1;
         }
 
         public override void Effect(List<Command> commands)
@@ -29,13 +30,9 @@ namespace script.command
         }
 
 
-
         public override void Effect(List<Soldier> soldiers)
         {
-            foreach (var s in soldiers)
-            {
-                s.speed += cupNoodleSpeedValue;
-            }
+            foreach (var s in soldiers) s.speed += cupNoodleSpeedValue;
         }
     }
 }

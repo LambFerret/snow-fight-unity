@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace script.soldier
@@ -5,15 +6,17 @@ namespace script.soldier
     [CreateAssetMenu(fileName = "Coffee", menuName = "Scriptable Objects/soldier/Coffee")]
     public class Coffee : Soldier
     {
-        public Coffee()
+        public Coffee() : base(
+            "Coffee",
+            2,
+            1,
+            2,
+            10,
+            new List<Terrain>(),
+            Rank.Private,
+            Branch.Administrative
+        )
         {
-            id = "Coffee";
-            rangeX = 2;
-            rangeY = 1;
-            speed = 2;
-            runAwayProbability = 10;
-            rank = Rank.Private;
-            branch = Branch.Administrative;
         }
 
         public override void Talent()

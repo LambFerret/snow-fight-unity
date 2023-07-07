@@ -1,4 +1,3 @@
-using System;
 using script.soldier;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,8 +15,9 @@ namespace script.component
         {
             if (soldier == null) return;
             tooltipPanel.SetActive(true);
-            string tooltipText = soldier.id + "\n" + soldier.rangeX + " / " +soldier.rangeY + "\n"
-                +"speed : "+ soldier.speed + "\n"+"runAway : " + soldier.runAwayProbability + "\n" + soldier.rank + "\n" + soldier.branch + "\n" + soldier.empowerLevel;
+            var tooltipText = soldier.id + "\n" + soldier.rangeX + " / " + soldier.rangeY + "\n"
+                              + "speed : " + soldier.speed + "\n" + "runAway : " + soldier.runAwayProbability + "\n" +
+                              soldier.rank + "\n" + soldier.branch + "\n" + soldier.empowerLevel;
             tooltipPanel.GetComponentInChildren<Text>().text = tooltipText;
         }
 

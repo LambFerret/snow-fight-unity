@@ -10,10 +10,7 @@ namespace script.manager
 
         public void Start()
         {
-            foreach (var soldier in Player.PlayerInstance.soldiers)
-            {
-                itemLibrary.PopSoldier(soldier.id);
-            }
+            foreach (var soldier in Player.PlayerInstance.soldiers) itemLibrary.PopSoldier(soldier.id);
         }
     }
 }
