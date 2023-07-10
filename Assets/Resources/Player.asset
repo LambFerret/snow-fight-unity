@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soldiers:
   - {fileID: 11400000, guid: 28dc9014144434c929656f9bd25bca2b, type: 2}
-  - {fileID: 11400000, guid: 8ec669c76a1a643f2a784ce1bd4d78ab, type: 2}
-  - {fileID: 11400000, guid: 877db6680e5fe40878c646bc0e2718c3, type: 2}
   commands:
   - {fileID: 11400000, guid: fc4bc4ba42e2d4e669a56a993cddc709, type: 2}
   - {fileID: 11400000, guid: 903e9f82eca284ac7ae8dc386ce01d7b, type: 2}
@@ -25,18 +23,17 @@ MonoBehaviour:
   maxCost: 15
   difficulty: 0
   currentCost: 15
-  snowAmount: 0
+  snowAmount: 34
   middleAffinity: 50
   downAffinity: 10
   upperAffinity: 10
   maxManualCapacity: 3
   maxCommandInHand: 2
   soldiersInThisLevel:
-  - {fileID: 11400000, guid: 877db6680e5fe40878c646bc0e2718c3, type: 2}
   - {fileID: 11400000, guid: 28dc9014144434c929656f9bd25bca2b, type: 2}
-  totalDeck:
+  totalDeck: []
+  usedCommandList:
   - {fileID: 11400000, guid: fc4bc4ba42e2d4e669a56a993cddc709, type: 2}
   - {fileID: 11400000, guid: 903e9f82eca284ac7ae8dc386ce01d7b, type: 2}
-  usedCommandList: []
   removalFromGameCommandList: []
   hand: []

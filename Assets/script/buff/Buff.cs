@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace script.buff
 {
-    public abstract class Buff
+    public abstract class Buff : ScriptableObject
     {
         public Target target;
         public string id;
@@ -12,7 +12,7 @@ namespace script.buff
         public Image icon;
         public bool isActivated = true;
 
-        protected Buff(
+        protected void InitBuff(
             string id,
             string description,
             Target target,
@@ -23,6 +23,7 @@ namespace script.buff
             this.id = id;
             this.description = description;
             this.duration = duration;
+            Debug.Log("buff made");
         }
 
         public abstract void ApplyEffect();

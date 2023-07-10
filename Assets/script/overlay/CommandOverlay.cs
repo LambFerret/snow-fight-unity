@@ -38,16 +38,19 @@ namespace script.overlay
 
         private void DrawFromDeck()
         {
-            var group = gameObject.GetComponent<HorizontalLayoutGroup>();
-
             var command = _totalDeck[Random.Range(0, _totalDeck.Count - 1)];
-            var commandGameObject = command.MakeCommandCard(Instantiate(prefab));
-            commandGameObject.transform.SetParent(group.transform, false);
-            var button = commandGameObject.GetComponent<Button>();
-            button.onClick.AddListener(() => PlayCommandFromHand(command));
+            MakeCard(command);
 
             _hand.Add(command);
             _totalDeck.Remove(command);
+        }
+
+        private void MakeCard(Command command)
+        {
+            var group = gameObject.GetComponent<HorizontalLayoutGroup>();
+            var commandGameObject = command.MakeCommandCard(Instantiate(prefab, group.transform));
+            var button = commandGameObject.GetComponent<Button>();
+            button.onClick.AddListener(() => PlayCommandFromHand(command));
             _commandToGameObjectPairs.Add(new CommandObjectPair(command, commandGameObject));
         }
 
@@ -57,14 +60,7 @@ namespace script.overlay
             var group = gameObject.GetComponent<HorizontalLayoutGroup>();
             foreach (Transform child in group.transform) Destroy(child.gameObject);
             _commandToGameObjectPairs.Clear();
-            foreach (var command in _hand)
-            {
-                var commandGameObject = command.MakeCommandCard(Instantiate(prefab));
-                commandGameObject.transform.SetParent(group.transform, false);
-                var button = commandGameObject.GetComponent<Button>();
-                button.onClick.AddListener(() => PlayCommandFromHand(command));
-                _commandToGameObjectPairs.Add(new CommandObjectPair(command, commandGameObject));
-            }
+            foreach (var command in _hand) MakeCard(command);
         }
 
         private void ResetDeck()

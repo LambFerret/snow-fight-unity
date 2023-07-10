@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using script.manager;
 using script.player;
 using script.soldier;
 using UnityEngine;
@@ -54,6 +55,8 @@ namespace script.command
         public int affectMultiplier;
 
         protected int initialCost;
+
+        protected BuffManager BuffManager => BuffManager.BuffManagerInstance;
 
         protected Command(
             string id,

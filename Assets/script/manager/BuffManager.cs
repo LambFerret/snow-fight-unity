@@ -9,14 +9,23 @@ namespace script.manager
 {
     public class BuffManager : MonoBehaviour
     {
-        public static List<Buff> buffs;
+        public List<Buff> buffs;
+        public static BuffManager BuffManagerInstance { get; private set; }
 
         private void Start()
         {
             buffs = new List<Buff>();
+            if (BuffManagerInstance != null && BuffManagerInstance != this)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                BuffManagerInstance = this;
+            }
         }
 
-        public static void AddBuff(Buff buff)
+        public void AddBuff(Buff buff)
         {
             buff.ApplyEffect();
             buffs.Add(buff);

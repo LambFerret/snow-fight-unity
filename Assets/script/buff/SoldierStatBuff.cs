@@ -10,17 +10,18 @@ namespace script.buff
         public int value;
         public Soldier soldier;
 
-        public SoldierStatBuff(Soldier soldier, Stat stat, Operation ops, int value, int duration) : base(
-            id: "SoldierStatBuff",
-            description: "SoldierStatBuff",
-            target: Target.Soldier,
-            duration: duration
-        )
+        public void Initialize(Soldier s, Stat status, Operation operation, int buffValue, int buffDuration)
         {
-            this.soldier = soldier;
-            this.stat = stat;
-            this.ops = ops;
-            this.value = value;
+            InitBuff(
+                id: "SoldierStatBuff",
+                description: "SoldierStatBuff",
+                target: Target.Soldier,
+                duration: duration
+            );
+            soldier = s;
+            stat = status;
+            ops = operation;
+            value = buffValue;
         }
 
         public override void ApplyEffect()

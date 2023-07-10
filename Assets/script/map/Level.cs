@@ -162,7 +162,6 @@ namespace script.map
 
         private void CreateImageOverlay(int startX, int startY, int width, int height, Soldier soldier)
         {
-            Debug.Log("xywh : " + startX + " " + startY + " " + width + " " + height);
             var topLeftWorldPos = tilemap.CellToWorld(new Vector3Int(startX, startY, 0));
             var bottomRightWorldPos = tilemap.CellToWorld(new Vector3Int(startX + width, startY + height, 0));
             var centerPos = (topLeftWorldPos + bottomRightWorldPos) / 2;

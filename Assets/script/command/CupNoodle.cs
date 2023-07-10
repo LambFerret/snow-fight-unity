@@ -31,9 +31,11 @@ namespace script.command
         public override void Effect(List<Soldier> soldiers, List<Command> commands)
         {
             foreach (var s in soldiers)
-                BuffManager.AddBuff(
-                    new SoldierStatBuff(s, SoldierStatBuff.Stat.RangeX, SoldierStatBuff.Operation.Add, 1, 3)
-                );
+            {
+                var buffScriptableObject = CreateInstance<SoldierStatBuff>();
+                buffScriptableObject.Initialize(s, SoldierStatBuff.Stat.RangeX, SoldierStatBuff.Operation.Add, 1, 3);
+                BuffManager.AddBuff(buffScriptableObject);
+            }
         }
     }
 }
