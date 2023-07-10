@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using script.player;
 using script.soldier;
 using UnityEngine;
 
@@ -23,12 +24,8 @@ namespace script.command
         {
         }
 
-        public override void Effect(List<Command> commands)
-        {
-        }
-
-
-        public override void Effect(List<Soldier> soldiers)
+        
+        public override void Effect(List<Soldier> soldiers, List<Command> commands)
         {
         }
     }

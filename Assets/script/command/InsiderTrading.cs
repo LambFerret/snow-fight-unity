@@ -23,12 +23,8 @@ namespace script.command
         {
         }
 
-        public override void Effect(List<Command> commands)
-        {
-        }
-
-
-        public override void Effect(List<Soldier> soldiers)
+        
+        public override void Effect(List<Soldier> soldiers, List<Command> commands)
         {
             // 클리어시 돈 2배
         }

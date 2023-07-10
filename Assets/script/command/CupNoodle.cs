@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using script.buff;
+using script.manager;
 using script.soldier;
 using UnityEngine;
 
@@ -25,14 +27,13 @@ namespace script.command
         {
         }
 
-        public override void Effect(List<Command> commands)
-        {
-        }
 
-
-        public override void Effect(List<Soldier> soldiers)
+        public override void Effect(List<Soldier> soldiers, List<Command> commands)
         {
-            foreach (var s in soldiers) s.speed += cupNoodleSpeedValue;
+            foreach (var s in soldiers)
+                BuffManager.AddBuff(
+                    new SoldierStatBuff(s, SoldierStatBuff.Stat.RangeX, SoldierStatBuff.Operation.Add, 1, 3)
+                );
         }
     }
 }

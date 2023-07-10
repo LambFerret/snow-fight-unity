@@ -54,7 +54,6 @@ namespace script.command
         public int affectMultiplier;
 
         protected int initialCost;
-        protected int initialMultiplier;
 
         protected Command(
             string id,
@@ -82,7 +81,13 @@ namespace script.command
             this.affectToDown = affectToDown;
             this.usedCount = usedCount;
             this.targetCount = targetCount;
-            initialMultiplier = 1;
+            initialCost = cost;
+        }
+
+        public void ResetValues()
+        {
+            cost = initialCost;
+            affectMultiplier = 1;
         }
 
         public void Effect()
@@ -91,25 +96,25 @@ namespace script.command
             switch (target)
             {
                 case Target.Soldier:
-                    Effect(player.soldiersInThisLevel);
+                    Effect(player.soldiersInThisLevel, null);
                     break;
                 case Target.SoldierSelected:
                     Debug.Log("selected player effect TODO");
                     break;
                 case Target.SoldierAll:
-                    Effect(player.soldiers);
+                    Effect(player.soldiers, null);
                     break;
                 case Target.CommandSelected:
                     // Effect(player.);
                     break;
                 case Target.CommandDeck:
-                    Effect(player.commands);
+                    Effect(null, player.commands);
                     break;
                 case Target.CommandThisTurn:
-                    Effect(player.hand);
+                    Effect(null, player.hand);
                     break;
                 case Target.Player:
-                    Effect(new List<Command>());
+                    Effect(null, null);
                     break;
                 case Target.UI:
                     // Effect(player.UI);
@@ -120,8 +125,7 @@ namespace script.command
             }
         }
 
-        public abstract void Effect(List<Command> commands);
-        public abstract void Effect(List<Soldier> soldiers);
+        public abstract void Effect(List<Soldier> soldiers, List<Command> commands);
 
         public GameObject MakeCommandCard(GameObject prefab)
         {

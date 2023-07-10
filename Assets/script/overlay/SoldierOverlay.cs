@@ -18,16 +18,20 @@ namespace script.Overlay
         {
             var player = Player.PlayerInstance;
             _soldiers = player.soldiersInThisLevel;
+            List<Soldier> temp = new List<Soldier>();
+            temp.AddRange(player.soldiers);
             _soldiers.Clear();
             _horizontalLayoutGroup = gameObject.GetComponent<HorizontalLayoutGroup>();
-            if (player.soldiers.Count <= maxSoliderCapacity)
-                _soldiers.AddRange(player.soldiers);
+            if (temp.Count <= maxSoliderCapacity)
+                _soldiers.AddRange(temp);
             else
                 for (var i = 0; i < maxSoliderCapacity; i++)
                 {
-                    var randomSoldierFromPlayer = Random.Range(0, player.soldiers.Count);
-                    var randomSoldier = player.soldiers[randomSoldierFromPlayer];
+                    var randomSoldierFromPlayer = Random.Range(0, temp.Count);
+                    var randomSoldier = temp[randomSoldierFromPlayer];
+                    randomSoldier.ResetStat();
                     _soldiers.Add(randomSoldier);
+                    temp.RemoveAt(randomSoldierFromPlayer);
                 }
 
             MakeSoldierOverlay();

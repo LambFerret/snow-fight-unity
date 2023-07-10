@@ -60,7 +60,7 @@ namespace script.soldier
         public Branch branch;
         public int branchValue;
         protected EmpowerLevel initEmpowerLevel;
-        protected int initRangeX;
+        [SerializeField ]protected int initRangeX;
         protected int initRangeY;
         protected int initRunAwayProbability;
         protected int initSpeed;

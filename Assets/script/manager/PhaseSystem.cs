@@ -22,9 +22,11 @@ namespace script.manager
         public int currentPhaseNumber;
         public Text phaseText;
         public Level currentLevel;
+        public BuffManager buffManager;
         private CommandOverlay _commandOverlay;
         private Player _player;
         private SoldierOverlay _soldierOverlay;
+        private int maxPhaseNumber;
 
         private void Start()
         {
@@ -40,13 +42,12 @@ namespace script.manager
 
         private void Update()
         {
-            phaseText.text = currentPhaseNumber + " / " + ((int)currentLevel.region + 2) + ", Phase : " + currentPhase;
+            maxPhaseNumber = (int)currentLevel.region + 10;
+            phaseText.text = currentPhaseNumber + " / " + maxPhaseNumber + ", Phase : " + currentPhase;
         }
 
         public void NextPhase()
         {
-            var maxPhaseNumber = (int)currentLevel.region + 2;
-
             switch (currentPhase)
             {
                 case PhaseState.Pre:
@@ -90,7 +91,10 @@ namespace script.manager
 
         private void WhenStartPhase()
         {
+            // 게임오브젝트 지우기
             currentLevel.ResetWorkingPlace();
+            // 버프 발현
+            buffManager.StartTurn();
             // 위치 잡기
             currentLevel.LocateWorkingPlace();
             // 카드 드로우

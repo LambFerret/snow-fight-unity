@@ -16,10 +16,10 @@ MonoBehaviour:
   soldierName: 
   rangeX: 1
   rangeY: 2
-  speed: 3
+  speed: 15
   runAwayProbability: 30
+  empowerLevel: 1
   preferenceTerrain: []
   rank: 2147483647
   branch: 1
-  empowerLevel: 1
   branchValue: 100

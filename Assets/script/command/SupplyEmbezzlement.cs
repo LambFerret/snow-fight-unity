@@ -23,12 +23,8 @@ namespace script.command
         {
         }
 
-        public override void Effect(List<Command> commands)
-        {
-        }
-
-
-        public override void Effect(List<Soldier> soldiers)
+        
+        public override void Effect(List<Soldier> soldiers, List<Command> commands)
         {
             // CommandBuff buff = new CommandBuff(name, CommandBuff.Figure.COST, 0, true, 1, 1);
             // buff.permanently();

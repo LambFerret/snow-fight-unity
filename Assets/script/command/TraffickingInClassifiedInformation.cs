@@ -24,12 +24,8 @@ namespace script.command
         {
         }
 
-        public override void Effect(List<Command> commands)
-        {
-        }
-
-
-        public override void Effect(List<Soldier> soldiers)
+        
+        public override void Effect(List<Soldier> soldiers, List<Command> commands)
         {
             // CommandBuff commandBuff = new CommandBuff(name, CommandBuff.Figure.REUSABLE, 0, true, 1, 1);
             // commandBuff.permanently();
