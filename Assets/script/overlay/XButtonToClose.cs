@@ -16,8 +16,7 @@ namespace Scenes
 
         private void ClosePanel()
         {
-            var panel = _button.transform.parent.GameObject();
-            panel.SetActive(false);
+           _button.transform.parent.GameObject().SetActive(false);
         }
     }
 }
